@@ -1,0 +1,88 @@
+@startuml
+
+class Usuario {
+    - String: nome
+    - String: login
+    - String: senha
+    + autenticar(String login, String senha) : Usuario
+}
+
+class Fornecedor {
+    - int : id
+    - String : nome
+    - String : telefone
+    - String : cnpj
+    - String : email
+    + buscar(String nome, boolean status) : Lista Fornecedor
+    + buscar(String cnpj, boolean status) : Fornecedor
+    + buscar(int id, boolean status) : Fornecedor
+    + buscar(Produto produto, boolean status) : Lista Fornecedor
+    + salvar(Fornecedor) : Fornecedor
+    + alterarStatus(Fornecedor) : boolean
+}
+
+class Estoque {
+    - double : quantidade
+    - calcularEntrada(Produto) : double
+    - calcularSaida(Produto) : double
+    - calcularEstoque(Produto) : double
+    + getQuantidade(Produto) : double
+}
+
+class Entrada {
+    - int : id
+    - date : data
+    - int : quantidade
+    - double : precoCusto
+    - Produto : produto
+    - Fornecedor : fornecedor
+    - String : lote
+    - date : validade
+    + Entrada(Produto)
+    + buscar(Produto) : Lista Entrada
+    + buscar(Fornecedor) : Lista Entrada
+    + buscar(date inicio, date final) : Lista Entrada
+    + salvar(Entrada) : Entrada
+    + alterarStatus(Entrada) : boolean
+
+}
+
+
+class Saida {
+    - int : id
+    - Produto : produto
+    - date : data
+    - double : desconto
+    - String : tipoSaida
+    + Saida(Produto)
+    + buscar(Produto) : Lista Saida
+    + buscar(String tipo) : Lista Saida
+    + buscar(date inicio, date final) : Lista Saida
+    + salvar(Saida) : Saida
+    + alterarStatus(Saida) : boolean
+    
+}
+
+abstract class Produto {
+    - int : id
+    - String : nome
+    - String : descricao
+    - date : criadoEm
+    - date : atualizadoEm
+    + buscar(String nome, boolean status) : Lista Fornecedor
+    + buscar(int id, boolean status) : Produto
+    + alterarStatus(Produto) : boolean
+    + salvar(Produto) : Produto
+}
+
+class Mercadoria extends Produto {
+    - double : quantidadeMinima
+    - double : porcentagemLucro
+    - boolean : perecivel
+}
+
+class Servico extends Produto {
+    - String : garantia
+}
+
+@enduml
