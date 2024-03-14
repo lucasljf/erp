@@ -15,6 +15,6 @@ Após, marque a opção **Open branch with GitHub Desktop** e clique em **Create
 
 ## Software utilizado
 
-- NetBeans - [texthttps://netbeans.apache.org/front/main/download/](https://https://netbeans.apache.org/front/main/download/)
+- NetBeans - [https://netbeans.apache.org/front/main/download/](https://https://netbeans.apache.org/front/main/download/)
 - GitHub Desktop - [Windows/Mac](https://https://desktop.github.com/) ou [Linux](https://github.com/shiftkey/desktop/releases/tag/release-3.3.8-linux2)
-- PlantUML - [texthttps://plantuml.com/](https://https://plantuml.com/)
+- PlantUML - [https://plantuml.com/](https://https://plantuml.com/)
