@@ -12,3 +12,9 @@ Na página do projeto no GitHub e visualizando a issue, clique no link **Create 
 Após, marque a opção **Open branch with GitHub Desktop** e clique em **Create Branch**.
 
 ![alt](documentos/create-branch-issue2.png)
+
+## Software utilizado
+
+- NetBeans - [texthttps://netbeans.apache.org/front/main/download/](https://https://netbeans.apache.org/front/main/download/)
+- GitHub Desktop - [Windows/Mac](https://https://desktop.github.com/) ou [Linux](https://github.com/shiftkey/desktop/releases/tag/release-3.3.8-linux2)
+- PlantUML - [texthttps://plantuml.com/](https://https://plantuml.com/)
