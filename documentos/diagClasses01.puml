@@ -1,88 +1,124 @@
 @startuml
 
-class Usuario {
-    - String: nome
-    - String: login
-    - String: senha
-    + autenticar(String login, String senha) : Usuario
+package modelo #e2d6d3 {
+    class Usuario {
+        - nome : String
+        - login : String
+        - senha : String
+    }
+
+    class Fornecedor {
+        - id : int
+        - nome : String
+        - telefone : String
+        - cnpj : String
+        - email : String
+    }
+
+    class Estoque {
+        - quantidade : double
+    }
+
+    class Entrada {
+        - id : int
+        - data : date
+        - quantidade : int
+        - precoCusto : double
+        - produto : Produto
+        - fornecedor : Fornecedor
+        - lote : String
+        - validade : date
+        + Entrada(Produto)
+    }
+
+
+    class Saida {
+        - id : int
+        - produto : Produto
+        - data : date
+        - desconto : double
+        - tipoSaida : String
+        + Saida(Produto)
+    }
+
+    abstract class Produto {
+        - id : int
+        - nome : String
+        - descricao : String
+        - criadoEm : date
+        - atualizadoEm : date
+    }
+
+    class Mercadoria extends Produto {
+        - quantidadeMinima : double
+        - porcentagemLucro : double
+        - perecivel : boolean
+    }
+
+    class Servico extends Produto {
+        - garantia : String
+    }
 }
 
-class Fornecedor {
-    - int : id
-    - String : nome
-    - String : telefone
-    - String : cnpj
-    - String : email
-    + buscar(String nome, boolean status) : Lista Fornecedor
-    + buscar(String cnpj, boolean status) : Fornecedor
-    + buscar(int id, boolean status) : Fornecedor
-    + buscar(Produto produto, boolean status) : Lista Fornecedor
-    + salvar(Fornecedor) : Fornecedor
-    + alterarStatus(Fornecedor) : boolean
+package dao #b6b1ac {
+    class Conexao {
+        + {static} SERVIDOR : String
+        + {static} USUARIO : String
+        + {static} SENHA : String
+        + getConexao() : Connection
+    }
+
+    note right of Conexao::SERVIDOR
+      Atributo com modificadores
+      **static**(sublinhado)
+      e **final** (maiúsculo).
+    end note
+
+    class UsuarioDAO {
+        + autenticar(String login, String senha) : Usuario
+    }
+
+    class FornecedorDAO {
+        + buscar(String nome, boolean status) : Lista Fornecedor
+        + buscar(String cnpj, boolean status) : Fornecedor
+        + buscar(int id, boolean status) : Fornecedor
+        + buscar(Produto produto, boolean status) : Lista Fornecedor
+        + salvar(Fornecedor) : Fornecedor
+        + alterarStatus(Fornecedor) : boolean
+    }
+
+    class EstoqueDAO {
+        + getQuantidade(Produto) : double
+    }
+
+    class EntradaDAO {
+        + buscar(Produto) : Lista Entrada
+        + buscar(Fornecedor) : Lista Entrada
+        + buscar(date inicio, date final) : Lista Entrada
+        + salvar(Entrada) : Entrada
+        + alterarStatus(Entrada) : boolean
+    }
+
+    class SaidaDAO {
+        + buscar(Produto) : Lista Saida
+        + buscar(String tipo) : Lista Saida
+        + buscar(date inicio, date final) : Lista Saida
+        + salvar(Saida) : Saida
+        + alterarStatus(Saida) : boolean
+    }
+
+    class ProdutoDAO {
+        + buscar(String nome, boolean status) : Lista Fornecedor
+        + buscar(int id, boolean status) : Produto
+        + alterarStatus(Produto) : boolean
+        + salvar(Produto) : Produto
+    }
 }
 
-class Estoque {
-    - double : quantidade
-    - calcularEntrada(Produto) : double
-    - calcularSaida(Produto) : double
-    - calcularEstoque(Produto) : double
-    + getQuantidade(Produto) : double
+package view #d0c4b9 {
 }
 
-class Entrada {
-    - int : id
-    - date : data
-    - int : quantidade
-    - double : precoCusto
-    - Produto : produto
-    - Fornecedor : fornecedor
-    - String : lote
-    - date : validade
-    + Entrada(Produto)
-    + buscar(Produto) : Lista Entrada
-    + buscar(Fornecedor) : Lista Entrada
-    + buscar(date inicio, date final) : Lista Entrada
-    + salvar(Entrada) : Entrada
-    + alterarStatus(Entrada) : boolean
-
-}
-
-
-class Saida {
-    - int : id
-    - Produto : produto
-    - date : data
-    - double : desconto
-    - String : tipoSaida
-    + Saida(Produto)
-    + buscar(Produto) : Lista Saida
-    + buscar(String tipo) : Lista Saida
-    + buscar(date inicio, date final) : Lista Saida
-    + salvar(Saida) : Saida
-    + alterarStatus(Saida) : boolean
-    
-}
-
-abstract class Produto {
-    - int : id
-    - String : nome
-    - String : descricao
-    - date : criadoEm
-    - date : atualizadoEm
-    + buscar(String nome, boolean status) : Lista Fornecedor
-    + buscar(int id, boolean status) : Produto
-    + alterarStatus(Produto) : boolean
-    + salvar(Produto) : Produto
-}
-
-class Mercadoria extends Produto {
-    - double : quantidadeMinima
-    - double : porcentagemLucro
-    - boolean : perecivel
-}
-
-class Servico extends Produto {
-    - String : garantia
+package controlador #abb4bb {
 }
 
 @enduml
