@@ -1,9 +1,6 @@
 
 package modelo;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Entrada {
 
@@ -77,6 +74,5 @@ public class Entrada {
         this.validade = validade;
     }
 
-
 }
-    
+  
