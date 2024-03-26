@@ -1,6 +1,4 @@
-
 package dao;
-
 
 import modelo.Fornecedor;
 
@@ -10,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class FornecedorDAO {
     private final Connection conexao = new Conexao().getConexao();
@@ -73,4 +72,4 @@ public class FornecedorDAO {
         return fornecedores;
         }
     }
-  
+
