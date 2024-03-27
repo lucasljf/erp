@@ -9,8 +9,7 @@ public class FornecedorDAO {
     
     public Fornecedor salvar(Fornecedor fornecedor){
     
-        Conexao con = new Conexao();
-        con.getConexao();
+        private final Connection con = new Conexao().getConexao();
       
         String sql = "INSERT INTO fornecedor (nome, telefone, cnpj, email) VALUES (?, ?, ?, ?)";
         
