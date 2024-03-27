@@ -24,13 +24,6 @@ public class Mercadoria extends Produto{
         this.porcentagemLucro = porcentagemLucro;
         this.perecivel = perecivel;
     }
-    
-    /*
-    * @NoArgsConstructor gera uma instância de objeto com valores padrão
-    */
-    public Mercadoria(){
-        
-    }
 
     public double getQuantidadeMinima() {
         return quantidadeMinima;
