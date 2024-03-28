@@ -38,5 +38,33 @@ public class FornecedorDAO {
         }
     }
 
+    public Fornecedor buscar(int id, boolean status) {
+        Fornecedor fornecedor = null;
+    
+    try {
+        String sql = "SELECT * FROM tb_fornecedor WHERE id = ? AND status = ?";
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+        stmt.setInt(1, id);
+        stmt.setBoolean(2, status);
+
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            fornecedor = new Fornecedor();
+            fornecedor.setId(rs.getInt("id"));
+            fornecedor.setNome(rs.getString("nome"));
+            fornecedor.setTelefone(rs.getString("telefone"));
+            fornecedor.setCnpj(rs.getString("cnpj"));
+            fornecedor.setEmail(rs.getString("email"));
+        }
+
+        rs.close();
+        stmt.close();
+    } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    return fornecedor;
+}
 }
 
