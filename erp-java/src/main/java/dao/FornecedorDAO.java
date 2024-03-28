@@ -63,6 +63,36 @@ public class FornecedorDAO {
         }
     }
 
+    public List<Fornecedor> buscar(String nome, boolean status) {
+        List<Fornecedor> fornecedores = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM tb_fornecedor WHERE nome LIKE ? AND status = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, "%" + nome + "%");
+            stmt.setBoolean(2, status);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Fornecedor fornecedor = new Fornecedor();
+                fornecedor.setId(rs.getInt("id"));
+                fornecedor.setNome(rs.getString("nome"));
+                fornecedor.setTelefone(rs.getString("telefone"));
+                fornecedor.setCnpj(rs.getString("cnpj"));
+                fornecedor.setEmail(rs.getString("email"));
+
+                fornecedores.add(fornecedor);
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return fornecedores;
+    }
+
     public List<Fornecedor> buscar(Produto produto, boolean status) {
         String product_nameString = produto.getNome();
         int status_boolean = status ? 1 : 0;
@@ -70,7 +100,7 @@ public class FornecedorDAO {
         String sql
                 = "SELECT * FROM tb_fornecedor INNER JOIN tb_produto ON tb_fornecedor.id = tb_produto.fornecedor_id WHERE tb_produto.nome = ? AND tb_fornecedor.status = ?";
         try (
-            Connection conn = Conexao.getConnexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
+                Connection conn = Conexao.getConnexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, product_nameString);
             ps.setInt(2, status_boolean);
             ResultSet rs = ps.executeQuery();
@@ -88,4 +118,5 @@ public class FornecedorDAO {
             return Fornecedores;
         }
     }
+
 }
