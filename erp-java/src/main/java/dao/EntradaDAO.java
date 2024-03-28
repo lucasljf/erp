@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import modelo.Produto;
 import modelo.Entrada;
 import modelo.Fornecedor;
@@ -24,17 +25,20 @@ public class EntradaDAO {
             ArrayList<Entrada> entradas = new ArrayList<>();
 
             while (rs.next()) {
-                Entrada entrada = new Entrada(rs.getInt("id"));
-                entrada.setData(rs.getDate("data"));
-                entrada.setQuantidade(rs.getInt("quantidade"));
-                entrada.setPrecoCusto(rs.getDouble("precoCusto"));
+                int id = rs.getInt("id");
+                Date data = rs.getDate("data");
+                int quantidade = rs.getInt("quantidade");
+                double precoCusto = rs.getDouble("preco_custo");
+                String lote = rs.getString("lote");
+                Date validade = rs.getDate("validade");
                 
-                Fornecedor fornecedor = new Fornecedor();
-                fornecedor.setId(rs.getInt("id"));
-                entrada.setFornecedor(fornecedor);
+                int id_fornecedor = rs.getInt("fornecedor_id");
                 
-                entrada.setLote(rs.getString("lote"));
-                entrada.setValidade(rs.getDate("validade"));
+                FornecedorDao fornecedorDao = new FornecedorDao();
+                Fornecedor fornecedor = fornecedorDao.buscar(id_fornecedor, 1);
+                
+                Entrada entrada = new Entrada(id, data, quantidade, precoCusto, produto, fornecedor, lote, validade);
+                
                 entradas.add(entrada);
             }
             
