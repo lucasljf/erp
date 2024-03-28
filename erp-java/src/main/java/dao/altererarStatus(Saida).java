@@ -16,25 +16,34 @@ public class SaidaDAO {
 
     private final Connection conexao = new Conexao().getConexao();
     
-    private void alterarStatus(Saida saida){
+    private boolean alterarStatus(Saida saida){
     	
-    	String sql = "update tb_saida set status = ? where tb_saida.id = ?";
-    	
-    	conexao = new Conexao().getConexao();
+    	String sqlSelect = "SELECT * FROM tb_saida WHERE id = ?";
+        String sqlUpdate = "UPDATE tb_saida SET status = ? WHERE id = ?";
     	
     	try {
+            PreparedStatement stmt = this.conexao.prepareStatement(sqlSelect);
+            stmt.setInt(1, saida.getId());
 
-            PreparedStatement stmt = this.conexao.prepareStatement(sql);
-            stmt.setInt(1, saida.getStatus());
+            ResultSet rs = stmt.executeQuery();
+
+            int status = rs.getInt("status");
+
+            stmt = this.conexao.prepareStatement(sqlUpdate);
+            if(status == 1){
+                stmt.setInt(1, 0);
+            } else {
+                stmt.setInt(1, 1);
+            }
             stmt.setInt(2, saida.getId());
-            
-            stmt.execute();
+
+            stmt.executeUpdate();
             stmt.close();
-       
-    	} catch (SQLException erro) {
-    		
-    		JOptionPane.showInternalMessageDialog(null, "SaidaDAO alterarStatus()" + erro);
-    	}
 
-
-    }
+            return true;
+        } catch (Exception exception){
+            exception.printStackTrace();
+            return false;
+        }
+   }
+}
