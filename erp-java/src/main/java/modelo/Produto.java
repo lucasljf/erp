@@ -10,20 +10,21 @@ public abstract class Produto {
     private Date atualizadoEm;
 
    
-    public Produto(int id, String nome, String descricao, Date criadoEm, Date atualizadoEm) {
-        this.id = id;
+    public Produto(String nome, String descricao, Date criadoEm, Date atualizadoEm) {
         this.nome = nome;
         this.descricao = descricao;
         this.criadoEm = new Date(); 
         this.atualizadoEm = new Date(); 
     }
+    
+    
 
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id =id;
     }
 
     public String getNome() {
