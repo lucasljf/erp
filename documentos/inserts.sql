@@ -99,3 +99,30 @@ INSERT INTO banco_erp.tb_produto (nome, descricao, criado_em, atualizado_em, qua
 ('Cadeira de Balanço', 'Cadeira de balanço em madeira maciça com almofada removível', '2024-03-24', '2024-03-24', 22, 0.21, 0, 'N/A', 'M'),
 ('Headset Gamer', 'Headset gamer com som surround 7.1 e microfone retrátil', '2024-03-24', '2024-03-24', 14, 0.17, 0, 'N/A', 'P'),
 ('Mochila Escolar', 'Mochila escolar resistente com compartimento acolchoado para laptop', '2024-03-24', '2024-03-24', 20, 0.15, 0, '1 ano', 'A');
+
+
+--inserts usuarios
+INSERT INTO tb_usuario (nome, login, senha) 
+VALUES 
+('Alice Silva', 'alicesilva', 'senha123'),
+('Bruno Santos', 'brunosantos', 'abc123'),
+('Carla Oliveira', 'carlaoliveira', 'qwerty'),
+('Daniel Costa', 'danieldaniel', 'senha456'),
+('Eduarda Almeida', 'eduardaalmeida', 'senha789'),
+('Fábio Pereira', 'fabiofabio', 'lima123'),
+('Gabriela Lima', 'gabrielalima', 'ferreira456'),
+('Hugo Souza', 'hugohugo', 'jupereira'),
+('Isabela Ferreira', 'isabelaferreira', 'almeida123'),
+('Júlio Santos', 'juliosantos', 'fs123'),
+('Karen Oliveira', 'karenoliveira', 'oliveira123'),
+('Luisa Silva', 'luisasilva', 'silva789'),
+('Marcelo Costa', 'marcelocosta', 'costa456'),
+('Natália Pereira', 'nataliapereira', 'pereira789'),
+('Otávio Almeida', 'otavioalmeida', 'amanda123'),
+('Paula Oliveira', 'paulaoliveira', 'oliveira456'),
+('Ricardo Lima', 'ricardolima', 'lima789'),
+('Sandra Souza', 'sandrasouza', 'souza123'),
+('Thiago Almeida', 'thiagoalmeida', 'almeida456'),
+('Vanessa Ferreira', 'vanessaferreira', 'ferreira123');
+
+select * from tb_usuario;
