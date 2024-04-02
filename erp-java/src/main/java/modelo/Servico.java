@@ -18,6 +18,8 @@ public class Servico extends Produto{
         super(nome, descricao, criadoEm, atualizadoEm);
         this.garantia = garantia;     
     }
+    
+    public Servico(){}
 
     public String getGarantia() {
         return garantia;
