@@ -91,6 +91,11 @@ public class EntradaDAO {
 
             ResultSet rs = stmt.executeQuery();
             ArrayList<Entrada> entradas = new ArrayList<>();
+            
+            int id_fornecedor = rs.getInt("fornecedor_id");
+            
+            FornecedorDAO fornecedorDao = new FornecedorDao();
+            fornecedor = fornecedorDao.buscar(id_fornecedor, 1);
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -99,7 +104,10 @@ public class EntradaDAO {
                 double precoCusto = rs.getDouble("preco_custo");
                 String lote = rs.getString("lote");
                 Date validade = rs.getDate("validade");
-                int id_fornecedor = rs.getInt("fornecedor_id");
+                int id_produto = rs.getInt("produto_id");
+                
+                ProdutoDAO produtoDao = new ProdutoDAO();
+                Produto produto = produtoDao.buscar(id_produto, 1);
 
                 Entrada entrada = new Entrada(id, data, quantidade, precoCusto, produto, fornecedor, lote, validade);
 
