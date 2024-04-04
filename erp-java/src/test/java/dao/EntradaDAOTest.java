@@ -65,25 +65,25 @@ public class EntradaDAOTest {
     }
     
     @Test
-public void testBuscar() {
-    fornecedorDAO.salvar(fornecedorMock);
-    produtoDAO.salvar(servicoMock);
-    entradaDAO.salvar(entradaMock);
-    
-    EntradaDAO entrada = new EntradaDAO();
-    List<Entrada> entradas = entrada.buscar(fornecedorMock);
-    
-    // Verifica se há pelo menos uma entrada na lista
-    assertFalse(entradas.isEmpty(), "Deveria retornar pelo menos uma entrada para o fornecedor fornecido.");
-    
-    // Verifica se a entrada mockada está presente na lista
-    boolean entradaEncontrada = false;
-    for (Entrada e : entradas) {
-        if (e.equals(entradaMock)) {
-            entradaEncontrada = true;
-            break;
+    public void testBuscar() {
+        fornecedorDAO.salvar(fornecedorMock);
+        produtoDAO.salvar(servicoMock);
+        entradaDAO.salvar(entradaMock);
+        
+        EntradaDAO entrada = new EntradaDAO();
+        List<Entrada> entradas = entrada.buscar(fornecedorMock);
+        
+        // Verifica se há pelo menos uma entrada na lista
+        assertFalse(entradas.isEmpty(), "Deveria retornar pelo menos uma entrada para o fornecedor fornecido.");
+        
+        // Verifica se a entrada mockada está presente na lista
+        boolean entradaEncontrada = false;
+        for (Entrada e : entradas) {
+            if (e.equals(entradaMock)) {
+                entradaEncontrada = true;
+                break;
+            }
         }
+        assertTrue(entradaEncontrada, "A entrada mockada deveria estar presente na lista.");
     }
-    assertTrue(entradaEncontrada, "A entrada mockada deveria estar presente na lista.");
-}
 }
