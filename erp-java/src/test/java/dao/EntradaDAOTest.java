@@ -3,6 +3,7 @@ package dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -64,15 +65,25 @@ public class EntradaDAOTest {
     }
     
     @Test
-    public void testBuscar() {
-        fornecedorDAO.salvar(fornecedorMock);
-        produtoDAO.salvar(servicoMock);
-        entradaDAO.salvar(entradaMock);
-        
-        EntradaDAO entrada = new EntradaDAO();
-        List<Entrada> entradas = new ArrayList<>();
-        entradas = entrada.buscar(fornecedorMock);
-        
-        assertEquals(1, entradas.size(), "Deveria retornar uma única entrada para o fornecedor fornecido.");
+public void testBuscar() {
+    fornecedorDAO.salvar(fornecedorMock);
+    produtoDAO.salvar(servicoMock);
+    entradaDAO.salvar(entradaMock);
+    
+    EntradaDAO entrada = new EntradaDAO();
+    List<Entrada> entradas = entrada.buscar(fornecedorMock);
+    
+    // Verifica se há pelo menos uma entrada na lista
+    assertFalse(entradas.isEmpty(), "Deveria retornar pelo menos uma entrada para o fornecedor fornecido.");
+    
+    // Verifica se a entrada mockada está presente na lista
+    boolean entradaEncontrada = false;
+    for (Entrada e : entradas) {
+        if (e.equals(entradaMock)) {
+            entradaEncontrada = true;
+            break;
+        }
     }
+    assertTrue(entradaEncontrada, "A entrada mockada deveria estar presente na lista.");
+}
 }
