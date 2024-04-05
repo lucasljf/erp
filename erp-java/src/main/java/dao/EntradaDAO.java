@@ -80,4 +80,46 @@ public class EntradaDAO {
             throw new RuntimeException();
         }
     }
+    
+    public ArrayList<Entrada> buscar(Fornecedor fornecedor) {
+        int fornecedorId = fornecedor.getId();
+        String sql = "SELECT * FROM tb_entrada WHERE tb_entrada.fornecedor_id = ?";
+
+        try {
+            PreparedStatement stmt = this.conexao.prepareStatement(sql);
+            stmt.setInt(1, fornecedor.getId());
+
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Entrada> entradas = new ArrayList<>();
+            
+            int id_fornecedor = rs.getInt("fornecedor_id");
+            
+            FornecedorDAO fornecedorDao = new FornecedorDao();
+            fornecedor = fornecedorDao.buscar(id_fornecedor, 1);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                Date data = rs.getDate("data");
+                int quantidade = rs.getInt("quantidade");
+                double precoCusto = rs.getDouble("preco_custo");
+                String lote = rs.getString("lote");
+                Date validade = rs.getDate("validade");
+                int id_produto = rs.getInt("produto_id");
+                
+                ProdutoDAO produtoDao = new ProdutoDAO();
+                Produto produto = produtoDao.buscar(id_produto, 1);
+
+                Entrada entrada = new Entrada(id, data, quantidade, precoCusto, produto, fornecedor, lote, validade);
+
+                entradas.add(entrada);
+            }
+
+            rs.close();
+            stmt.close();
+            return entradas;
+
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
 }
