@@ -2,3 +2,10 @@
 *.sh
 *.csv
 *.class
+/.idea/
+/.vscode/
+/.classpath
+/.project
+/.settings/
+.~lock.*
+*/nbproject/
