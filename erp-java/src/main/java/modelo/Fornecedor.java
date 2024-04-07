@@ -11,6 +11,26 @@ public class Fornecedor {
     private String cnpj;
     private String email;
 
+    //Construtor vazio
+    public Fornecedor(){}
+
+    //Construtor com todos os campos
+    public Fornecedor(int id, String nome, String telefone, String cnpj, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cnpj = cnpj;
+        this.email = email;
+    }
+
+    //Construtor com todos os campos, exceto ID
+    public Fornecedor(String nome, String telefone, String cnpj, String email) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cnpj = cnpj;
+        this.email = email;
+    }
+
     /**
      * @return the id
      */
