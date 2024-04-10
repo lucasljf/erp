@@ -6,8 +6,8 @@ import modelo.Saida;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-public class SaidaDAO {
-    //Não é possivel fazer o Teste da Classe.
+
+    //Não foi possivel fazer o Teste da Classe.
     public class SaidaDAO {
         private List <Saida> listaSaida;
 
@@ -60,5 +60,4 @@ public class SaidaDAO {
             return false;
         }
     }
-
 }
