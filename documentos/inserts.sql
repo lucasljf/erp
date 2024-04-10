@@ -1,4 +1,3 @@
--- Inserts Fornecedor
 
 INSERT INTO tb_fornecedor (nome, telefone, cnpj, email)
 VALUES 
@@ -22,5 +21,3 @@ VALUES
 ('Comércio Nacional', '(88)0246-8135', '01.234.567/0001-89', 'comercionacional@example.com'),
 ('Fornecedor XYZ Ltda', '(99)9876-5432', '12.345.678/0001-90', 'fornecedorXYZ_Ltda@example.com'),
 ('Empresa F Importação', '(00)3691-2345', '23.456.789/0001-12', 'empresaF_importacao@example.com');
-
-SELECT * FROM tb_fornecedor;
