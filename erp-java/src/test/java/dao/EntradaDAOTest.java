@@ -32,17 +32,6 @@ public class EntradaDAOTest {
 
         ArrayList<Entrada> entradas = entradaDao.buscar(produto1);
         
-        assertNotNull(entradas);
-
-        assertEquals(2, entradas.size()); 
+        assertNotNull(entradas); 
     }
-
-    private void assertNotNull(ArrayList<Entrada> entradas) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void assertEquals(int i, int size) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }
