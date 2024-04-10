@@ -15,8 +15,7 @@ public class EntradaDAOTest {
         Fornecedor fornecedor = new Fornecedor();        
         Entrada e1 = new Entrada(new Date(2024, 01, 03), 1, 12.5, fornecedor, "JB2334DDJFRR5", new Date(2024, 02, 01));
         EntradaDAO dao = new EntradaDAO();
-        
-        e1.setId(1);
+        e1 = dao.salvar(e1);
         
         //ação
         Boolean statusAlterado = dao.alterarStatus(e1);
