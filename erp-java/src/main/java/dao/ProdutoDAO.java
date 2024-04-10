@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import modelo.Mercadoria;
 import modelo.Produto;
+import modelo.Servico;
 
 public class ProdutoDAO {
     private final Connection conexao = new Conexao().getConexao();
@@ -25,6 +27,31 @@ public class ProdutoDAO {
             ResultSet rs = stmt.getGeneratedKeys();
             
             produto.setId(rs.getInt(1));
+            
+            if(produto instanceof Mercadoria){
+                Mercadoria mercadoria = (Mercadoria) produto;
+                
+                String sqlSalvarMercadoria = "UPDATE tb_produto SET quantidade_minima = ?, porcentagem_lucro = ?, perecivel = ? WHERE id = ?";
+                
+                PreparedStatement stmtMercadoria = this.conexao.prepareStatement(sqlSalvarMercadoria);
+                stmtMercadoria.setDouble(1, mercadoria.getQuantidadeMinima());
+                stmtMercadoria.setDouble(2, mercadoria.getPorcentagemLucro());
+                stmtMercadoria.setBoolean(3, mercadoria.isPerecivel());
+                stmtMercadoria.setInt(4, mercadoria.getId());
+                
+                stmtMercadoria.executeUpdate();
+                
+            }else if(produto instanceof Servico){
+                Servico servico = (Servico) produto;
+                
+                String sqlSalvarServico = "UPDATE tb_produto SET garantia = ? WHERE id = ?";
+                
+                PreparedStatement stmtServico = this.conexao.prepareStatement(sqlSalvarServico);
+                stmtServico.setString(1, servico.getGarantia());
+                stmtServico.setInt(2, servico.getId());
+                
+                stmt.executeUpdate();
+            }
             
             return produto;
         } catch (SQLException e) {
