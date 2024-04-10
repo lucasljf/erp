@@ -9,3 +9,4 @@
 /.settings/
 .~lock.*
 */nbproject/
+/erp-java/target/
