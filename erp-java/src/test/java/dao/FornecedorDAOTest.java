@@ -12,15 +12,13 @@ public class FornecedorDAOTest {
 
     @Test
     public void testAlterarStatus() {
-        // Criar um fornecedor para testar
+        
         Fornecedor fornecedor = new Fornecedor("NOME", "TELEFONE", "CNPJ", "EMAIL");
         FornecedorDAO dao = new FornecedorDAO();
 
-        // Alterar o status do fornecedor para testar
-        Boolean novoStatus = true; // Por exemplo, vamos alterar o status para verdadeiro
+        Boolean novoStatus = true; 
         Boolean alteracaoStatus = dao.alterarStatus(fornecedorInserido, novoStatus);
 
-        // Verificar se a alteração de status foi bem-sucedida
         assertTrue(alteracaoStatus);
     }
 }
