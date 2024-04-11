@@ -6,13 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import org.mockito.Mockito;
+              
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Before;
 import org.junit.jupiter.api.Test;
 
 import modelo.Entrada;
@@ -38,7 +40,6 @@ public class EntradaDAOTest {
         when(fornecedorMock.getCnpj()).thenReturn("12345678901234");
         when(fornecedorMock.getTelefone()).thenReturn("62985401985");
         when(fornecedorMock.getEmail()).thenReturn("nupros@mail.com");
-
         
         produtoDAO = new ProdutoDAO();
         LocalDate data = LocalDate.now();
@@ -66,11 +67,11 @@ public class EntradaDAOTest {
     
     @Test
     public void testBuscar() {
-        fornecedorDAO.salvar(fornecedorMock);
-        produtoDAO.salvar(servicoMock);
-        entradaDAO.salvar(entradaMock);
+        Mockito.when(fornecedorDAO.salvar(fornecedorMock)).thenReturn(fornecedorMock);
+        Mockito.when(produtoDAO.salvar(servicoMock)).thenReturn(servicoMock);
+        Mockito.when(entradaDAO.salvar(entradaMock)).thenReturn(entradaMock);
         
-        EntradaDAO entrada = new EntradaDAO();
+        EntradaDAO entrada = entradaDAO;
         List<Entrada> entradas = entrada.buscar(fornecedorMock);
         
         // Verifica se há pelo menos uma entrada na lista
