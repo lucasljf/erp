@@ -1,36 +1,33 @@
 package dao;
 
 import modelo.Mercadoria;
+import modelo.Produto;
 import modelo.Servico;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.util.Date;
 public class ProdutoDAOTest {
     private ProdutoDAO produtoDAO = new ProdutoDAO();
     @Test
     public void salvarMercadoria(){
-        Mercadoria produto = new Mercadoria("Produto", "Descrição do Produto", new Date(), new Date(),
+        Produto produto = new Mercadoria("Produto", "Descrição do Produto", new Date(), new Date(),
                 10, 0.15, false);
 
-        Mockito.when(produtoDAO.salvar(produto)).thenReturn(produto);
+        Produto produtoSalvo = produtoDAO.salvar(produto);
 
-        Assertions.assertAll(() -> Assertions.assertEquals("Produto", produto.getNome()),
-                () -> Assertions.assertFalse(produto.isPerecivel()));
+        Assertions.assertAll(() -> Assertions.assertEquals("Produto", produtoSalvo.getNome()),
+                () -> Assertions.assertEquals(produto.getCriadoEm(), produtoSalvo.getCriadoEm()));
     }
 
     @Test
     public void salvarServico(){
-        Servico produto = new Servico("Produto", "Descrição do Produto", new Date(), new Date(),
+        Produto produto = new Servico("Produto", "Descrição do Produto", new Date(), new Date(),
                 "Garantia");
 
-        Mockito.when(produtoDAO.salvar(produto)).thenReturn(produto);
+        Produto produtoSalvo = produtoDAO.salvar(produto);
 
         Assertions.assertAll(() -> Assertions.assertEquals("Produto", produto.getNome()),
-                () -> Assertions.assertEquals("Garantia", produto.getGarantia()));
+                () -> Assertions.assertEquals(produto.getAtualizadoEm(), produtoSalvo.getAtualizadoEm()));
     }
 }
