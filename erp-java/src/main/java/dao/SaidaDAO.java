@@ -4,22 +4,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import modelo.Saida;
 
 public class SaidaDAO {
-    private list<Saida> listaSaidas;
-
-    public SaidaDAO() {
-        this.listaSaidas = new Arraylist<>();
-    }
+    private final Connection conexao = new Conexao().getConexao();
     
-    //Método para buscar saída
+    public Saida salvar(Saida saida) {
+        String sql = "INSERT INTO tb_saida (produto, data, desconto, tipoSaida) VALUES (?, ?, ?, ?)";
+                
+        try {
+            PreparedStatement stmt = this.conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, saida.getProduto().getId());
+            stmt.setDate(2, saida.getData());
+            stmt.setDouble(3, saida.getDesconto());
+            stmt.setString(4, saida.getTipoSaida());
+            
+            stmt.execute();
+            
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            
+            saida.setId(rs.getInt(1));
     
-    public void salvar(Saida saida){
-        listaSaidas.add(saida);
-        System.out.println("Saída salva com sucesso");
+            stmt.close();
+    
+            return saida;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
-
