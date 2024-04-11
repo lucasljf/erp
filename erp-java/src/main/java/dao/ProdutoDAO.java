@@ -47,9 +47,10 @@ public class ProdutoDAO {
 
         try {
             String sql = "SELECT * FROM tb_produto WHERE id = ? AND status = ?";
+            int statusNum = (status) ? 1 : 0;
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
-            stmt.setBoolean(2, status);
+            stmt.setInt(2, statusNum);
 
             ResultSet rs = stmt.executeQuery();
             
@@ -57,25 +58,11 @@ public class ProdutoDAO {
 
             if (rs.next()) {
                 if(tipoProduto.equalsIgnoreCase("M")){
-                    Mercadoria produto = new Mercadoria();
-                    produto.setId(rs.getInt("id"));
-                    produto.setNome(rs.getString("nome"));
-                    produto.setDescricao(rs.getString("descricao"));
-                    produto.setCriadoEm(rs.getDate("criado_em"));
-                    produto.setAtualizadoEm(rs.getDate("atualizado_em"));
-                    produto.setQuantidadeMinima(rs.getDouble("quantidade_minima"));
-                    produto.setPorcentagemLucro(rs.getDouble("porcentagem_lucro"));
-                    produto.setPerecivel(rs.getBoolean("perecivel"));
+                    Mercadoria produto = new Mercadoria(rs.getInt("id"), rs.getString("nome"), rs.getString("descricao"), rs.getDate("criado_em"), rs.getDate("atualizado_em"), rs.getDouble("quantidade_minima"), rs.getDouble("porcentagem_lucro"), rs.getBoolean("perecivel"));
                     
                     return produto;
                 } else {
-                    Servico produto = new Servico();
-                    produto.setId(rs.getInt("id"));
-                    produto.setNome(rs.getString("nome"));
-                    produto.setDescricao(rs.getString("descricao"));
-                    produto.setCriadoEm(rs.getDate("criado_em"));
-                    produto.setAtualizadoEm(rs.getDate("atualizado_em"));
-                    produto.setGarantia(rs.getString("garantia"));
+                    Servico produto = new Servico(rs.getInt("id"), rs.getString("nome"), s.getString("descricao"), rs.getDate("criado_em"), rs.getDate("atualizado_em"), rs.getString("garantia"));
                     
                     return produto;
                 }
