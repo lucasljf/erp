@@ -13,14 +13,16 @@ public class Entrada {
     private Fornecedor fornecedor;
     private String lote;
     private Date validade;
+    private Produto produto;
 
-    public Entrada(Date data, int quantidade, double precoCusto, Fornecedor fornecedor, String lote, Date validade) {
+    public Entrada(Produto produto, Date data, int quantidade, double precoCusto, Fornecedor fornecedor, String lote, Date validade) {
         this.data = data;
         this.quantidade = quantidade;
         this.precoCusto = precoCusto;
         this.fornecedor = fornecedor;
         this.lote = lote;
         this.validade = validade;
+        this.produto = produto;
 
     }
 
