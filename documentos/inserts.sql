@@ -124,5 +124,3 @@ VALUES
 ('Sandra Souza', 'sandrasouza', 'souza123'),
 ('Thiago Almeida', 'thiagoalmeida', 'almeida456'),
 ('Vanessa Ferreira', 'vanessaferreira', 'ferreira123');
-
-select * from tb_usuario;
