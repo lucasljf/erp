@@ -1,120 +1,74 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package dao;
 
-import java.util.List;
-import modelo.Fornecedor;
+import modelo.Mercadoria;
 import modelo.Produto;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+import modelo.Servico;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author mario
- */
-public class FornecedorDAOTest {
-    
-    public FornecedorDAOTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+import java.util.Date;
+import java.util.List;
 
-    /**
-     * Test of salvar method, of class FornecedorDAO.
-     */
+public class ProdutoDAOTest {
+    private ProdutoDAO produtoDAO = new ProdutoDAO();
+
     @Test
-    public void testSalvar() {
-        System.out.println("salvar");
-        Fornecedor fornecedor = null;
-        FornecedorDAO instance = new FornecedorDAO();
-        Fornecedor expResult = null;
-        Fornecedor result = instance.salvar(fornecedor);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testBuscarMercadorias() {
+        // Cria uma mercadoria ativa
+        Mercadoria mercadoriaAtiva = new Mercadoria("Produto Ativo", "Descrição do Produto Ativo",
+                new Date(), new Date(), 10, 0.15, true);
+
+        // Salva a mercadoria ativa
+        Produto produtoSalvoAtivo = produtoDAO.salvar(mercadoriaAtiva);
+        // Busca mercadorias ativas
+        List<Produto> mercadoriasAtivas = produtoDAO.buscarPorStatus(true);
+        // Verifica se a mercadoria ativa está na lista de produtos ativos
+        Assertions.assertTrue(mercadoriasAtivas.contains(produtoSalvoAtivo),
+                "A mercadoria ativa não foi encontrada na lista de produtos ativos.");
+
+        //----------------------------------------------------------------//
+
+        // Cria uma mercadoria inativa
+        Mercadoria mercadoriaInativa = new Mercadoria("Produto Inativo", "Descrição da Mercadoria Inativa",
+                new Date(), new Date(), 5, 0.10, false);
+
+        // Salva a mercadoria inativa
+        Produto produtoSalvoInativo = produtoDAO.salvar(mercadoriaInativa);
+        // Busca mercadorias inativas
+        List<Produto> mercadoriasInativas = produtoDAO.buscarPorStatus(false);
+        // Verifica se a mercadoria inativa está na lista de produtos inativos
+        Assertions.assertTrue(mercadoriasInativas.contains(produtoSalvoInativo),
+                "A mercadoria inativa não foi encontrada na lista de produtos inativos.");
     }
 
-    /**
-     * Test of alterarStatus method, of class FornecedorDAO.
-     */
-    @Test
-    public void testAlterarStatus() {
-        System.out.println("alterarStatus");
-        Fornecedor fornecedor = null;
-        FornecedorDAO instance = new FornecedorDAO();
-        boolean expResult = false;
-        boolean result = instance.alterarStatus(fornecedor);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        @Test
+        public void testBuscarServicosAtivos() {
+            // Cria um serviço ativo
+            Servico servicoAtivo = new Servico("Produto Ativo", "Descrição do Produto Ativo",
+                    new Date(), new Date(), "Garantia");
 
-    /**
-     * Test of buscar method, of class FornecedorDAO.
-     */
-    @Test
-    public void testBuscar_int_boolean() {
-        System.out.println("buscar");
-        int id = 0;
-        boolean status = false;
-        FornecedorDAO instance = new FornecedorDAO();
-        Fornecedor expResult = null;
-        Fornecedor result = instance.buscar(id, status);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+            // Salva o serviço
+            Produto produtoSalvo = produtoDAO.salvar(servicoAtivo);
+            // Busca serviços ativos
+            List<Produto> servicosAtivos = produtoDAO.buscarPorStatus(true);
+            // Verifica se o serviço está na lista de ativos
+            Assertions.assertTrue(servicosAtivos.contains(produtoSalvo),
+                    "O serviço ativo não foi encontrado na lista de produtos ativos.");
+        }
 
-    /**
-     * Test of buscar method, of class FornecedorDAO.
-     */
-    @Test
-    public void testBuscar_String_boolean() {
-        System.out.println("buscar");
-        String nome = "";
-        boolean status = false;
-        FornecedorDAO instance = new FornecedorDAO();
-        List<Fornecedor> expResult = null;
-        List<Fornecedor> result = instance.buscar(nome, status);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        @Test
+        public void testBuscarServicosInativos() {
+            // Cria um serviço inativo
+            Servico servicoInativo = new Servico("Produto Inativo", "Descrição do Produto Inativo",
+                    new Date(), new Date(), "Garantia");
 
-    /**
-     * Test of buscar method, of class FornecedorDAO.
-     */
-    @Test
-    public void testBuscar_Produto_boolean() {
-        System.out.println("buscar");
-        Produto produto = null;
-        boolean status = false;
-        FornecedorDAO instance = new FornecedorDAO();
-        List<Fornecedor> expResult = null;
-        List<Fornecedor> result = instance.buscar(produto, status);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+            // Salva o serviço
+            Produto produtoSalvo = produtoDAO.salvar(servicoInativo);
+            // Busca serviços inativos
+            List<Produto> servicosInativos = produtoDAO.buscarPorStatus(false);
+            // Verifica se o serviço está na lista de inativos
+            Assertions.assertTrue(servicosInativos.contains(produtoSalvo),
+                    "O serviço inativo não foi encontrado na lista de produtos inativos.");
+        }
+
 }
