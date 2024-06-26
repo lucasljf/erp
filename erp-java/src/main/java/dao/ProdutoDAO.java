@@ -10,10 +10,12 @@ import modelo.Servico;
 import java.sql.Connection;
 
 public class ProdutoDAO {
-    
-public ArrayList<Produto> buscar(String nome, boolean status) {
+
+    private final Connection conexao = new Conexao().getConexao();
+
+    public ArrayList<Produto> buscar(String nome, boolean status) {
         ArrayList<Produto> produtos = new ArrayList<>();
-               
+
         String sql = "SELECT * FROM tb_produto WHERE nome = ? AND status = ?";
         int statusNum = (status) ? 1 : 0;
 
@@ -39,8 +41,10 @@ public ArrayList<Produto> buscar(String nome, boolean status) {
 
                     if (produto instanceof Mercadoria) {
                         Mercadoria mercadoria = (Mercadoria) produto;
-                        mercadoria.setQuantidadeMinima(rs.getInt("quantidade_minima"));
-                        mercadoria.setPorcentagemLucro(rs.getDouble("porcentagem_lucro"));
+                        mercadoria.setQuantidadeMinima(rs.getInt(
+                                "quantidade_minima"));
+                        mercadoria.setPorcentagemLucro(rs.getDouble(
+                                "porcentagem_lucro"));
                         mercadoria.setPerecivel(rs.getBoolean("perecivel"));
 
                         produtos.add(mercadoria);
@@ -54,42 +58,42 @@ public ArrayList<Produto> buscar(String nome, boolean status) {
                 }
 
             } catch (SQLException e) {
-                System.out.println("Erro: "+ e.getMessage());
+                System.out.println("Erro: " + e.getMessage());
             }
-        }catch (SQLException exception){
-            System.out.println("Erro: "+ exception.getMessage());
+        } catch (SQLException exception) {
+            System.out.println("Erro: " + exception.getMessage());
         }
         return produtos;
     }
-    private final Connection conexao = new Conexao().getConexao();
 
     public boolean alterarStatus(Produto produto) {
         int statusAtual, novoStatus;
         boolean statusAlterado = false;
         String sqlSelectStatus = "SELECT status FROM tb_produto WHERE id = ?";
         String sqlUpdateStatus = "UPDATE tb_produto SET status = ? WHERE id = ?";
-        
+
         try {
-            PreparedStatement stmt = this.conexao.prepareStatement(sqlSelectStatus);
+            PreparedStatement stmt = this.conexao.prepareStatement(
+                    sqlSelectStatus);
             stmt.setInt(1, produto.getId());
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 statusAtual = rs.getInt("status");
                 novoStatus = (statusAtual == 1) ? 0 : 1;
-                
+
                 stmt = this.conexao.prepareStatement(sqlUpdateStatus);
                 stmt.setInt(1, novoStatus);
                 stmt.setInt(2, produto.getId());
                 stmt.execute();
                 stmt.close();
-                statusAlterado = true;  
-            }            
-            
+                statusAlterado = true;
+            }
+
         } catch (Exception e) {
             throw new RuntimeException();
         }
-        
+
         return statusAlterado;
     }
 
