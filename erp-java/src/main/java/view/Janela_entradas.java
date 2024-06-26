@@ -35,6 +35,7 @@ public class Janela_entradas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText(" Gestão de Entradas");
 
+        jButton1.setBackground(new java.awt.Color(102, 255, 102));
         jButton1.setText("Cadastrar Entrada");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -42,6 +43,7 @@ public class Janela_entradas extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(102, 255, 153));
         jButton2.setText("Buscar Entrada");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,6 +51,7 @@ public class Janela_entradas extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(102, 255, 204));
         jButton3.setText("Editar Entrada");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -50,6 +50,7 @@ public class Busca_entrada extends javax.swing.JFrame {
 
         jLabel5.setText("Data Final:");
 
+        jButton1.setBackground(new java.awt.Color(0, 204, 204));
         jButton1.setText("BUSCAR");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
