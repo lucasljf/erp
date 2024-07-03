@@ -1,13 +1,15 @@
 package dao;
 
+import modelo.Produto;
+import modelo.Saida;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import modelo.Produto;
-import modelo.Saida;
+import java.util.List;
 
 public class SaidaDAO {
 
@@ -34,7 +36,7 @@ public class SaidaDAO {
                 produtoSaida.add(saida);
 
             }
-  
+
             return produtoSaida;
         } catch (SQLException e) {
             throw new RuntimeException();
@@ -56,7 +58,7 @@ public class SaidaDAO {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
-                
+
                 int id_produto = rs.getInt("produto_id");
                 ProdutoDao produtoDao = new ProdutoDao();
                 Produto produto = produtoDao.buscar(id_produto, 1)
@@ -66,7 +68,7 @@ public class SaidaDAO {
                 String tipo_saida = rs.getString("tipo_saida");
 
                 Saida saida = new Saida(id, produto, data, desconto, tipo_saida);
-                
+
                 saidaEncontrada.add(saida);
             }
             rs.close();
@@ -78,4 +80,14 @@ public class SaidaDAO {
         }
     }
 
+    public List<Saida> buscar(Date inicio, Date fim) {
+        List<Saida> saidasEncontradas = new ArrayList<>();
+        for (Saida saida : listaSaida) {
+            Date dataSaida = saida.getData();
+            if (dataSaida.after(inicio) && dataSaida.before(fim)) {
+                saidasEncontradas.add(saida);
+            }
+        }
+        return saidasEncontradas;
+    }
 }
