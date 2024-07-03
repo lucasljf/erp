@@ -14,24 +14,32 @@ public class FornecedorDAO {
     private final Connection conexao = new Conexao().getConexao();
 
     public Fornecedor salvar(Fornecedor fornecedor) {
-        String sql = "INSERT INTO fornecedor (nome, telefone, cnpj, email) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_fornecedor (nome, telefone, cnpj, email) VALUES (?, ?, ?, ?)";
 
         try {
-            PreparedStatement stmt = this.conexao.prepareStatement(sql);
+            PreparedStatement stmt = this.conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getTelefone());
             stmt.setString(3, fornecedor.getCnpj());
             stmt.setString(4, fornecedor.getEmail());
-
+            
             stmt.execute();
+
+            ResultSet rs = stmt.getGeneratedKeys();  
+            rs.next();
+            
+            fornecedor.setId(rs.getInt(1));
+            
+                    
             stmt.close();
+            
+            return fornecedor;
 
         } catch (SQLException e) {
             throw new RuntimeException();
 
         }
 
-        return fornecedor;
     }
 
     public boolean alterarStatus(Fornecedor fornecedor) {
