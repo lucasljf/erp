@@ -14,24 +14,32 @@ public class FornecedorDAO {
     private final Connection conexao = new Conexao().getConexao();
 
     public Fornecedor salvar(Fornecedor fornecedor) {
-        String sql = "INSERT INTO fornecedor (nome, telefone, cnpj, email) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_fornecedor (nome, telefone, cnpj, email) VALUES (?, ?, ?, ?)";
 
         try {
-            PreparedStatement stmt = this.conexao.prepareStatement(sql);
+            PreparedStatement stmt = this.conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getTelefone());
             stmt.setString(3, fornecedor.getCnpj());
             stmt.setString(4, fornecedor.getEmail());
-
+            
             stmt.execute();
+
+            ResultSet rs = stmt.getGeneratedKeys();  
+            rs.next();
+            
+            fornecedor.setId(rs.getInt(1));
+            
+                    
             stmt.close();
+            
+            return fornecedor;
 
         } catch (SQLException e) {
             throw new RuntimeException();
 
         }
 
-        return fornecedor;
     }
 
     public boolean alterarStatus(Fornecedor fornecedor) {
@@ -65,12 +73,14 @@ public class FornecedorDAO {
 
     public Fornecedor buscar(int id, boolean status) {
         Fornecedor fornecedor = null;
+        int statusNum = status ? 1 : 0;
+
 
         try {
             String sql = "SELECT * FROM tb_fornecedor WHERE id = ? AND status = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
-            stmt.setBoolean(2, status);
+            stmt.setInt(2, statusNum);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -129,9 +139,10 @@ public class FornecedorDAO {
         try {
             String sql = "SELECT * FROM tb_fornecedor WHERE cnpj = ? AND status = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, cnpj);
-            stmt.setBoolean(2, status);
 
+            int statusNum = (status) ? 1 : 0;
+            stmt.setString(1, cnpj);
+            stmt.setInt(2, statusNum);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -152,6 +163,7 @@ public class FornecedorDAO {
         return fornecedor;
 
     }
+
 
     public List<Fornecedor> buscar(Produto produto, boolean status) {
         String product_nameString = produto.getNome();
