@@ -95,9 +95,9 @@ public class ProdutoDAO {
         }
 
         return statusAlterado;
-        
+
     }
-    
+
     public Produto buscar(int id, boolean status) {
         String tipoProduto;
 
@@ -109,17 +109,24 @@ public class ProdutoDAO {
             stmt.setInt(2, statusNum);
 
             ResultSet rs = stmt.executeQuery();
-            
+
             tipoProduto = rs.getString("tipo_produto");
 
             if (rs.next()) {
-                if(tipoProduto.equalsIgnoreCase("M")){
-                    Mercadoria produto = new Mercadoria(rs.getInt("id"), rs.getString("nome"), rs.getString("descricao"), rs.getDate("criado_em"), rs.getDate("atualizado_em"), rs.getDouble("quantidade_minima"), rs.getDouble("porcentagem_lucro"), rs.getBoolean("perecivel"));
-                    
+                if (tipoProduto.equalsIgnoreCase("M")) {
+                    Mercadoria produto = new Mercadoria(rs.getInt("id"), rs.
+                            getString("nome"), rs.getString("descricao"), rs.
+                            getDate("criado_em"), rs.getDate("atualizado_em"),
+                            rs.getDouble("quantidade_minima"), rs.getDouble(
+                            "porcentagem_lucro"), rs.getBoolean("perecivel"));
+
                     return produto;
                 } else {
-                    Servico produto = new Servico(rs.getInt("id"), rs.getString("nome"), s.getString("descricao"), rs.getDate("criado_em"), rs.getDate("atualizado_em"), rs.getString("garantia"));
-                    
+                    Servico produto = new Servico(rs.getInt("id"), rs.getString(
+                            "nome"), s.getString("descricao"), rs.getDate(
+                            "criado_em"), rs.getDate("atualizado_em"), rs.
+                            getString("garantia"));
+
                     return produto;
                 }
             }
@@ -128,7 +135,7 @@ public class ProdutoDAO {
             stmt.close();
         } catch (Exception e) {
             System.out.println(e);
-        }        
+        }
     }
 
 }
