@@ -65,12 +65,14 @@ public class FornecedorDAO {
 
     public Fornecedor buscar(int id, boolean status) {
         Fornecedor fornecedor = null;
+        int statusNum = status ? 1 : 0;
+
 
         try {
             String sql = "SELECT * FROM tb_fornecedor WHERE id = ? AND status = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
-            stmt.setBoolean(2, status);
+            stmt.setInt(2, statusNum);
 
             ResultSet rs = stmt.executeQuery();
 
