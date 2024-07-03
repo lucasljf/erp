@@ -90,6 +90,7 @@ public class SaidaDAO {
         }
         return saidasEncontradas;
     }
+    
     public Saida salvar(Saida saida) {
         String sql = "INSERT INTO tb_saida (produto, data, desconto, tipoSaida) VALUES (?, ?, ?, ?)";
         try {
