@@ -90,28 +90,60 @@ public class SaidaDAO {
         }
         return saidasEncontradas;
     }
-    
+
     public Saida salvar(Saida saida) {
         String sql = "INSERT INTO tb_saida (produto, data, desconto, tipoSaida) VALUES (?, ?, ?, ?)";
         try {
-            PreparedStatement stmt = this.conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = this.conexao.prepareStatement(sql,
+                    PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, saida.getProduto().getId());
             stmt.setDate(2, saida.getData());
             stmt.setDouble(3, saida.getDesconto());
             stmt.setString(4, saida.getTipoSaida());
-            
+
             stmt.execute();
             ResultSet rs = stmt.getGeneratedKeys();
-            
+
             rs.next();
-            
+
             saida.setId(rs.getInt(1));
-    
+
             stmt.close();
-    
+
         } catch (SQLException e) {
             return saida;
             throw new RuntimeException(e);
-    }
         }
+    }
+
+    private boolean alterarStatus(Saida saida) {
+
+        String sqlSelect = "SELECT * FROM tb_saida WHERE id = ?";
+        String sqlUpdate = "UPDATE tb_saida SET status = ? WHERE id = ?";
+
+        try {
+            PreparedStatement stmt = this.conexao.prepareStatement(sqlSelect);
+            stmt.setInt(1, saida.getId());
+
+            ResultSet rs = stmt.executeQuery();
+
+            int status = rs.getInt("status");
+
+            stmt = this.conexao.prepareStatement(sqlUpdate);
+            if (status == 1) {
+                stmt.setInt(1, 0);
+            } else {
+                stmt.setInt(1, 1);
+            }
+            stmt.setInt(2, saida.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+
+            return true;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return false;
+        }
+    }
 }
