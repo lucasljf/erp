@@ -122,3 +122,27 @@ VALUES
 ('Comércio Nacional', '(88)0246-8135', '01.234.567/0001-89', 'comercionacional@example.com'),
 ('Fornecedor XYZ Ltda', '(99)9876-5432', '12.345.678/0001-90', 'fornecedorXYZ_Ltda@example.com'),
 ('Empresa F Importação', '(00)3691-2345', '23.456.789/0001-12', 'empresaF_importacao@example.com');
+
+--inserts usuarios
+INSERT INTO tb_usuario (nome, login, senha) 
+VALUES 
+('Alice Silva', 'alicesilva', 'senha123'),
+('Bruno Santos', 'brunosantos', 'abc123'),
+('Carla Oliveira', 'carlaoliveira', 'qwerty'),
+('Daniel Costa', 'danieldaniel', 'senha456'),
+('Eduarda Almeida', 'eduardaalmeida', 'senha789'),
+('Fábio Pereira', 'fabiofabio', 'lima123'),
+('Gabriela Lima', 'gabrielalima', 'ferreira456'),
+('Hugo Souza', 'hugohugo', 'jupereira'),
+('Isabela Ferreira', 'isabelaferreira', 'almeida123'),
+('Júlio Santos', 'juliosantos', 'fs123'),
+('Karen Oliveira', 'karenoliveira', 'oliveira123'),
+('Luisa Silva', 'luisasilva', 'silva789'),
+('Marcelo Costa', 'marcelocosta', 'costa456'),
+('Natália Pereira', 'nataliapereira', 'pereira789'),
+('Otávio Almeida', 'otavioalmeida', 'amanda123'),
+('Paula Oliveira', 'paulaoliveira', 'oliveira456'),
+('Ricardo Lima', 'ricardolima', 'lima789'),
+('Sandra Souza', 'sandrasouza', 'souza123'),
+('Thiago Almeida', 'thiagoalmeida', 'almeida456'),
+('Vanessa Ferreira', 'vanessaferreira', 'ferreira123');
