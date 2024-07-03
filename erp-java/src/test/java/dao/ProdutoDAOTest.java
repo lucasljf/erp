@@ -1,48 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package dao;
 
+import modelo.Mercadoria;
+import modelo.Produto;
+import modelo.Servico;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import java.util.Date;
 import java.time.LocalDate;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Entrada;
 import modelo.Fornecedor;
-import modelo.Mercadoria;
-import modelo.Produto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-/**
- *
- * @author aluno
- */
 public class ProdutoDAOTest {
-    
-    public ProdutoDAOTest() {
+    private ProdutoDAO produtoDAO = new ProdutoDAO();
+    @Test
+    public void salvarMercadoria(){
+        Produto produto = new Mercadoria("Produto", "Descrição do Produto", new Date(), new Date(),
+                10, 0.15, false);
+
+        Produto produtoSalvo = produtoDAO.salvar(produto);
+
+        Assertions.assertAll(() -> Assertions.assertEquals("Produto", produtoSalvo.getNome()),
+                () -> Assertions.assertEquals(produto.getCriadoEm(), produtoSalvo.getCriadoEm()));
     }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+
+    @Test
+    public void salvarServico(){
+        Produto produto = new Servico("Produto", "Descrição do Produto", new Date(), new Date(),
+                "Garantia");
+
+        Produto produtoSalvo = produtoDAO.salvar(produto);
+
+        Assertions.assertAll(() -> Assertions.assertEquals("Produto", produto.getNome()),
+                () -> Assertions.assertEquals(produto.getAtualizadoEm(), produtoSalvo.getAtualizadoEm()));
     }
     
     @Test
@@ -86,9 +82,5 @@ public class ProdutoDAOTest {
         
         fornecedores = produtoDao.buscar("Balinha de Menta", false);
         Assertions.assertTrue(fornecedores.isEmpty());
-        
-        //
     }
 }
-
-   

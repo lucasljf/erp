@@ -26,6 +26,10 @@ public class Entrada {
 
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
