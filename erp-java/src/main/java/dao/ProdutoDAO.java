@@ -95,6 +95,47 @@ public class ProdutoDAO {
         }
 
         return statusAlterado;
+
+    }
+
+    public Produto buscar(int id, boolean status) {
+        String tipoProduto;
+
+        try {
+            String sql = "SELECT * FROM tb_produto WHERE id = ? AND status = ?";
+            int statusNum = (status) ? 1 : 0;
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.setInt(2, statusNum);
+
+            ResultSet rs = stmt.executeQuery();
+
+            tipoProduto = rs.getString("tipo_produto");
+
+            if (rs.next()) {
+                if (tipoProduto.equalsIgnoreCase("M")) {
+                    Mercadoria produto = new Mercadoria(rs.getInt("id"), rs.
+                            getString("nome"), rs.getString("descricao"), rs.
+                            getDate("criado_em"), rs.getDate("atualizado_em"),
+                            rs.getDouble("quantidade_minima"), rs.getDouble(
+                            "porcentagem_lucro"), rs.getBoolean("perecivel"));
+
+                    return produto;
+                } else {
+                    Servico produto = new Servico(rs.getInt("id"), rs.getString(
+                            "nome"), s.getString("descricao"), rs.getDate(
+                            "criado_em"), rs.getDate("atualizado_em"), rs.
+                            getString("garantia"));
+
+                    return produto;
+                }
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 }
