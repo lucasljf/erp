@@ -139,9 +139,10 @@ public class FornecedorDAO {
         try {
             String sql = "SELECT * FROM tb_fornecedor WHERE cnpj = ? AND status = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, cnpj);
-            stmt.setBoolean(2, status);
 
+            int statusNum = (status) ? 1 : 0;
+            stmt.setString(1, cnpj);
+            stmt.setInt(2, statusNum);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -162,6 +163,7 @@ public class FornecedorDAO {
         return fornecedor;
 
     }
+
 
     public List<Fornecedor> buscar(Produto produto, boolean status) {
         String product_nameString = produto.getNome();
