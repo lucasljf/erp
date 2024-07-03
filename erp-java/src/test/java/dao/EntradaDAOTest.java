@@ -16,6 +16,10 @@ import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Before;
 import org.junit.jupiter.api.Test;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EntradaDAOTest {
 
@@ -129,10 +133,6 @@ public class EntradaDAOTest {
         assertTrue(statusAlterado);
 
     }
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
     @Test
     public void testSalvar() {
