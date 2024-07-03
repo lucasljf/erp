@@ -40,4 +40,19 @@ public class FornecedorDAOTest {
 
         assertTrue(alteracaoStatus);
     }
+   
+    @Test
+    public void testBuscarCnpjStatus() {
+        FornecedorDAO dao = new FornecedorDAO();
+
+        Fornecedor fornecedor = (Fornecedor) dao.buscar("12345678901234", true);
+
+        assertNotNull(fornecedor);
+
+        assertEquals("Fornecedor 1", fornecedor.getNome());
+        assertEquals("123456789", fornecedor.getTelefone());
+        assertEquals("12345678901234", fornecedor.getCnpj());
+        assertEquals("fornecedor1@teste.com", fornecedor.getEmail());
+        assertTrue(fornecedor.isStatus());
+    }
 }
