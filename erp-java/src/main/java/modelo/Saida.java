@@ -29,7 +29,7 @@ public class Saida {
     /**
      * @return the Produto
      */
-    public int getProduto() {
+    public Produto getProduto() {
         return produto;
     }
 
