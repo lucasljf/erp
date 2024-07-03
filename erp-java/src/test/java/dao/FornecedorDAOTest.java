@@ -3,11 +3,8 @@ package dao;
 import modelo.Fornecedor;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import java.util.List;
 
-/**
- *
- * @author sara
- */
 public class FornecedorDAOTest {
 
     @Test
@@ -22,4 +19,13 @@ public class FornecedorDAOTest {
 
     }
 
+    public void testBuscar() {
+        FornecedorDAO dao = new FornecedorDAO();
+        
+        List <Fornecedor> fornecedores = dao.buscar("Raf", true);
+        
+        assertNotNull(fornecedores);
+        assertFalse(fornecedores.isEmpty());
+    
+    }
 }
