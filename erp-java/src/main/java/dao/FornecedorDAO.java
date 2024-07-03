@@ -105,12 +105,13 @@ public class FornecedorDAO {
 
     public List<Fornecedor> buscar(String nome, boolean status) {
         List<Fornecedor> fornecedores = new ArrayList<>();
+        int statusNum = status ? 1 : 0;
 
         try {
             String sql = "SELECT * FROM tb_fornecedor WHERE nome LIKE ? AND status = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, "%" + nome + "%");
-            stmt.setBoolean(2, status);
+            stmt.setInt(2, statusNum);
 
             ResultSet rs = stmt.executeQuery();
 
