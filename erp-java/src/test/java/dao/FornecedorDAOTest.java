@@ -28,4 +28,16 @@ public class FornecedorDAOTest {
         assertFalse(fornecedores.isEmpty());
     
     }
+
+    @Test
+    public void testAlterarStatus() {
+        
+        Fornecedor fornecedor = new Fornecedor("NOME", "TELEFONE", "CNPJ", "EMAIL");
+        FornecedorDAO dao = new FornecedorDAO();
+
+        Boolean novoStatus = true; 
+        Boolean alteracaoStatus = dao.alterarStatus(fornecedorInserido, novoStatus);
+
+        assertTrue(alteracaoStatus);
+    }
 }
