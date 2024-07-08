@@ -12,18 +12,25 @@ public class VisualizarVariasMercadorias extends javax.swing.JFrame {
     private int paginaAtual = 1;
     private final int QTDE_POR_PAGINA = 10;
     private int totalPaginas;
+    private ArrayList<Produto> produtos;
 
     public VisualizarVariasMercadorias() {
-        controller = new MercadoriaController();
+        controller = new MercadoriaController();        
         initComponents();
+        produtos = controller.buscarTodos(true);
         addContentToTable();
-        this.setVisible(true);
-    }    
+        this.setVisible(true);        
+        tblMercadorias.setAutoCreateRowSorter(true);
+    }
+
+    /*
+    * @addContentToTable exibe o conteúdo de @produtos em páginas com 10 itens.
+    * Antes de chamar o método certifique de atualizar a lista de produtos
+    * da forma que desejar.
+    */
     private void addContentToTable() {
         DefaultTableModel model = (DefaultTableModel) tblMercadorias.getModel();
         model.setRowCount(0);
-
-        ArrayList<Produto> produtos = controller.buscarTodos(true);
         
         lblPagina2.setText(String.valueOf(paginaAtual));
         int startIndex = (paginaAtual - 1) * QTDE_POR_PAGINA;
