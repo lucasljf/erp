@@ -8,12 +8,12 @@ package view;
  *
  * @author 55629
  */
-public class Busca_entrada extends javax.swing.JFrame {
+public class BuscaEntrada extends javax.swing.JFrame {
 
     /**
      * Creates new form Buscaprod
      */
-    public Busca_entrada() {
+    public BuscaEntrada() {
         initComponents();
     }
 
@@ -188,7 +188,7 @@ public class Busca_entrada extends javax.swing.JFrame {
         /* Create and display the form */
         Cad_entradas.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Busca_entrada().setVisible(true);
+                new BuscaEntrada().setVisible(true);
             }
         });
     }
