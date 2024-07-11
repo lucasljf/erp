@@ -8,12 +8,12 @@ package view;
  *
  * @author 55629
  */
-public class Cad_entradas extends javax.swing.JFrame {
+public class EditarEntrada extends javax.swing.JFrame {
 
     /**
      * Creates new form java
      */
-    public Cad_entradas() {
+    public EditarEntrada() {
         initComponents();
     }
 
@@ -340,9 +340,9 @@ public class Cad_entradas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        Cad_entradas.awt.EventQueue.invokeLater(new Runnable() {
+        EditarEntrada.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cad_entradas().setVisible(true);
+                new EditarEntrada().setVisible(true);
             }
         });
     }
