@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 55629
@@ -244,7 +246,12 @@ public class Cad_entradas extends javax.swing.JFrame {
     }//GEN-LAST:event_productName6ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+  if(
+                JOptionPane.showConfirmDialog(this,"Você deseja realmente cancelar?","Cancelar",JOptionPane.YES_NO_OPTION) 
+                == JOptionPane.YES_OPTION
+                ){
+       this.dispose();
+        } 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
