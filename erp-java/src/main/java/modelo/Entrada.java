@@ -21,7 +21,7 @@ public class Entrada {
         this.lote = lote;
         this.validade = validade;
         this.produto = produto;
-        
+
     }
 
     public void setId(int id) {

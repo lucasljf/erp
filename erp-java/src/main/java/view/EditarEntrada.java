@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Mercadoria;
 import modelo.Produto;
 
 /**
@@ -60,11 +61,11 @@ public class Cad_entradas extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        validadeProduto1 = new javax.swing.JTextField();
+        validadeProduto = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         porcLucro = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        porcLucro1 = new javax.swing.JTextField();
+        qntdMinima = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,9 +161,9 @@ public class Cad_entradas extends javax.swing.JFrame {
 
         jLabel10.setText("% Lucro:");
 
-        validadeProduto1.addActionListener(new java.awt.event.ActionListener() {
+        validadeProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                validadeProduto1ActionPerformed(evt);
+                validadeProdutoActionPerformed(evt);
             }
         });
 
@@ -176,9 +177,9 @@ public class Cad_entradas extends javax.swing.JFrame {
 
         jLabel12.setText("Qntd minima:");
 
-        porcLucro1.addActionListener(new java.awt.event.ActionListener() {
+        qntdMinima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                porcLucro1ActionPerformed(evt);
+                qntdMinimaActionPerformed(evt);
             }
         });
 
@@ -209,9 +210,9 @@ public class Cad_entradas extends javax.swing.JFrame {
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(porcLucro1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(qntdMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fornecedorProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(validadeProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(validadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(loteProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnTrue)
@@ -271,13 +272,13 @@ public class Cad_entradas extends javax.swing.JFrame {
                                             .addComponent(jLabel4)
                                             .addComponent(qntdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel12)
-                                            .addComponent(porcLucro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(qntdMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel5)
                                             .addComponent(precoCustoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel8)
-                                            .addComponent(validadeProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(validadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(13, 13, 13)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -349,22 +350,24 @@ public class Cad_entradas extends javax.swing.JFrame {
  try {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String dataString = validadeProduto.getText();
-
         Date validadeProdutoData = formato.parse(dataString);
+        String fabricacaoString = fabricacaoProduto.getText();
+        Date fabricacao = formato.parse(fabricacaoString);
+        
         String nome = nomeProduto.getText(); // Suponho que `nomeProduto` seja o nome do produto
-        String data = dataProduto.getText();
         int lote = Integer.parseInt(loteProduto.getText());
         String fornecedor = fornecedorProduto.getText();
-        String descricao = descricaoProduto.getText();
-        String fabricacao = fabricacaoProduto.getText();
         double precoCusto = Double.parseDouble(precoCustoProduto.getText());
-        int quantidade = Integer.parseInt(quantidadeProduto.getText());
-
-        // Criando um objeto Produto com as informações obtidas
-        Mercadoria produto = new Mercadoria(nome, descricao, fabricacao, validadeProdutoData);
-
+        int quantidade = Integer.parseInt(qntdProduto.getText());
+        int qntdMin  = Integer.parseInt(qntdMinima.getText());
+       
+        Mercadoria produto = new Mercadoria();
+        produto.setNome(nome);
+        produto.setCriadoEm(fabricacao);
+        
+        
         EntradaController entradaController = new EntradaController();
-        entradaController.cadastrarEntrada(data, produto, quantidade, precoCusto, fornecedor, String.valueOf(lote), validadeProdutoData);
+        entradaController.cadastrarEntrada(); //essa linha passa os parametros para o controler 
 
     } catch (NumberFormatException e) {
         System.err.println("Erro ao converter o número: " + e.getMessage());
@@ -395,7 +398,7 @@ public class Cad_entradas extends javax.swing.JFrame {
         boolean perecivel = btnTrue.isSelected();
     }//GEN-LAST:event_btnTrueActionPerformed
 
-    private void validadeProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validadeProduto1ActionPerformed
+    private void validadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validadeProduto1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_validadeProduto1ActionPerformed
 
@@ -403,9 +406,9 @@ public class Cad_entradas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_porcLucroActionPerformed
 
-    private void porcLucro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_porcLucro1ActionPerformed
+    private void qntdMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qntdMinimaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_porcLucro1ActionPerformed
+    }//GEN-LAST:event_qntdMinimaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,9 +471,9 @@ public class Cad_entradas extends javax.swing.JFrame {
     private javax.swing.JTextField loteProduto;
     private javax.swing.JTextField nomeProduto;
     private javax.swing.JTextField porcLucro;
-    private javax.swing.JTextField porcLucro1;
     private javax.swing.JTextField precoCustoProduto;
+    private javax.swing.JTextField qntdMinima;
     private javax.swing.JTextField qntdProduto;
-    private javax.swing.JTextField validadeProduto1;
+    private javax.swing.JTextField validadeProduto;
     // End of variables declaration//GEN-END:variables
 }
