@@ -1,11 +1,9 @@
 package modelo;
 
-
 import java.util.Date;
 
-
 public class Entrada {
-    
+
     private int id;
     private Date data;
     private int quantidade;
@@ -23,7 +21,7 @@ public class Entrada {
         this.lote = lote;
         this.validade = validade;
         this.produto = produto;
-
+        
     }
 
     public void setId(int id) {
@@ -80,5 +78,9 @@ public class Entrada {
 
     public void setValidade(Date validade) {
         this.validade = validade;
+    }
+
+    public void salvarEntrada(Entrada entrada) {
+
     }
 }
