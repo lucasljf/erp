@@ -25,6 +25,7 @@ public class Cad_entradas extends javax.swing.JFrame {
     public Cad_entradas() {
         initComponents();
     }
+    
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     Date date = new Date();
     String dateString = formatter.format(date);
@@ -349,25 +350,27 @@ public class Cad_entradas extends javax.swing.JFrame {
     private void salvarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarEntradaActionPerformed
  try {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        String dataString = validadeProduto.getText();
-        Date validadeProdutoData = formato.parse(dataString);
-        String fabricacaoString = fabricacaoProduto.getText();
-        Date fabricacao = formato.parse(fabricacaoString);
         
-        String nome = nomeProduto.getText(); // Suponho que `nomeProduto` seja o nome do produto
-        int lote = Integer.parseInt(loteProduto.getText());
+        // Parse das datas
+        Date validadeProdutoData = formato.parse(validadeProduto.getText());
+        Date fabricacao = formato.parse(fabricacaoProduto.getText());
+        
+        // Captura dos outros dados
+        String nome = nomeProduto.getText();
+        String lote = loteProduto.getText();
         String fornecedor = fornecedorProduto.getText();
         double precoCusto = Double.parseDouble(precoCustoProduto.getText());
+        double porcent = Double.parseDouble(porcLucro.getText());
+
         int quantidade = Integer.parseInt(qntdProduto.getText());
         int qntdMin  = Integer.parseInt(qntdMinima.getText());
+        
+        Mercadoria mercadoria = new Mercadoria(nome, fornecedor, fabricacao, validadeProdutoData, qntdMin, porcent, perecivel);
        
-        Mercadoria produto = new Mercadoria();
-        produto.setNome(nome);
-        produto.setCriadoEm(fabricacao);
         
         
         EntradaController entradaController = new EntradaController();
-        entradaController.cadastrarEntrada(); //essa linha passa os parametros para o controler 
+        entradaController.cadastrarEntrada(mercadoria,); 
 
     } catch (NumberFormatException e) {
         System.err.println("Erro ao converter o número: " + e.getMessage());
