@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Fornecedor;
 import modelo.Mercadoria;
 import modelo.Produto;
 
@@ -366,11 +367,12 @@ public class Cad_entradas extends javax.swing.JFrame {
         int qntdMin  = Integer.parseInt(qntdMinima.getText());
         
         Mercadoria mercadoria = new Mercadoria(nome, fornecedor, fabricacao, validadeProdutoData, qntdMin, porcent, perecivel);
-       
+       Fornecedor fornecedor1 = new Fornecedor(fornecedor);
         
         
         EntradaController entradaController = new EntradaController();
-        entradaController.cadastrarEntrada(mercadoria,); 
+        entradaController.cadastrarEntrada(mercadoria, new Date(), quantidade, precoCusto, fornecedor1, lote, validadeProdutoData);
+
 
     } catch (NumberFormatException e) {
         System.err.println("Erro ao converter o número: " + e.getMessage());

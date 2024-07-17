@@ -1,5 +1,6 @@
 package modelo;
 
+import dao.EntradaDAO;
 import java.util.Date;
 
 public class Entrada {
@@ -80,7 +81,7 @@ public class Entrada {
         this.validade = validade;
     }
 
-    public void salvarEntrada(Entrada entrada) {
-
+    public static  void salvarEntrada(Entrada entrada) {
+        EntradaDAO.salvar(entrada);
     }
 }
