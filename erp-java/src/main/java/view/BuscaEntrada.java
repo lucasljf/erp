@@ -186,7 +186,7 @@ public class BuscaEntrada extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        Cad_entradas.awt.EventQueue.invokeLater(new Runnable() {
+        BuscaEntrada.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BuscaEntrada().setVisible(true);
             }
