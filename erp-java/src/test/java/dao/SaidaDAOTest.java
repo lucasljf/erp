@@ -8,8 +8,13 @@ import java.util.Date;
 import modelo.Mercadoria;
 import modelo.Produto;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
+import org.mockito.MockitoAnnotations;
+import java.sql.Connection;
+import java.sql.SQLException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 
 public class SaidaDAOTeste{
     public Connection mockConnettion;
@@ -81,15 +86,3 @@ public class SaidaDAOTeste{
         assertEquals("saida", saida.getTipoSaida());
     }
 }
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
