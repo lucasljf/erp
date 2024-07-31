@@ -8,13 +8,20 @@ import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import controlador.FornecedorController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import modelo.Fornecedor;
 
 /**
  *
  * @author reina
  */
 public class BuscarFornecedor extends javax.swing.JPanel {
-
+    
+    public static void main(String args[]) {
+    
+    }
     /**
      * Creates new form BuscarFornecedor
      */
@@ -34,7 +41,7 @@ public class BuscarFornecedor extends javax.swing.JPanel {
         txtBuscar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabela = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         cbFiltro = new javax.swing.JComboBox<>();
@@ -54,7 +61,7 @@ public class BuscarFornecedor extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -77,18 +84,18 @@ public class BuscarFornecedor extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(20);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
+        jScrollPane1.setViewportView(jTabela);
+        if (jTabela.getColumnModel().getColumnCount() > 0) {
+            jTabela.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTabela.getColumnModel().getColumn(0).setMaxWidth(20);
+            jTabela.getColumnModel().getColumn(1).setResizable(false);
+            jTabela.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTabela.getColumnModel().getColumn(2).setResizable(false);
+            jTabela.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTabela.getColumnModel().getColumn(3).setResizable(false);
+            jTabela.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTabela.getColumnModel().getColumn(4).setResizable(false);
+            jTabela.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         jButton2.setText("editar");
@@ -157,25 +164,57 @@ public class BuscarFornecedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+     
         String filtro = cbFiltro.getSelectedItem().toString();
         String status = cbFiltrarStatus.getSelectedItem().toString();
         String busca = txtBuscar.getText();
-       
+
         FornecedorController fornecedorControler = new FornecedorController();
-        
-        boolean retorno = fornecedorControler.filtrar(filtro, status, busca);
-        
-        if(retorno){
+
+        // boolean retorno = fornecedorControler.filtrar(filtro, status, busca);
+        List<Fornecedor> fornecedores = fornecedorControler.filtrar(filtro, status, busca);
+
+        if (!fornecedores.isEmpty()) {
             // imprimir os dados na tabela
+            
+            String[] colunas = {"CNPJ", "Nome", "Telefone", "Email"};
+        Object[][] dados = new Object[fornecedores.size()][colunas.length];
+
+        for (int i = 0; i < fornecedores.size(); i++) {
+            Fornecedor fornecedor = fornecedores.get(i);
+            dados[i][0] = fornecedor.getCnpj();
+            dados[i][1] = fornecedor.getNome();
+            dados[i][2] = fornecedor.getTelefone();
+            dados[i][4] = fornecedor.getEmail();
+        }
+
+        // Atualizar a tabela
+        DefaultTableModel model = new DefaultTableModel(dados, colunas);
+        jTabela.setModel(model);
+
+//        String[] colunas = {"CNPJ", "Nome", "Telefone", "Email"};
+//        DefaultTableModel model = new DefaultTableModel(colunas, 0);
+//        
+//        for (Fornecedor fornecedor : fornecedores) {
+//            Object[] linha = {
+//                fornecedor.getCnpj(),
+//                fornecedor.getNome(),
+//                fornecedor.getTelefone(),
+//                fornecedor.getEmail()
+//            };
+//            model.addRow(linha);
+//        }
+//        jTabela.setModel(model);
+
         } else {
             // informar qual foi o erro
+            JOptionPane.showMessageDialog(this, "Nenhum fornecedor encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        
-        
+
     }//GEN-LAST:event_txtBuscarActionPerformed
 
 
@@ -187,7 +226,7 @@ public class BuscarFornecedor extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTabela;
     private static javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

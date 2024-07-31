@@ -95,11 +95,12 @@ public class FornecedorDAO {
 
             rs.close();
             stmt.close();
-        } catch (Exception e) {
+            
+            return fornecedor;
+        } catch (SQLException e) {
             System.out.println(e);
+            return null;
         }
-
-        return fornecedor;
 
     }
 

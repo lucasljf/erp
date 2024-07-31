@@ -1,50 +1,62 @@
-
 package controlador;
 
-import modelo.Produto;
-import view.BuscarFornecedor;
 import dao.FornecedorDAO;
+import java.util.List;
+import modelo.Fornecedor;
 
 public class FornecedorController {
 
-    public boolean filtrar(String tipo, String status, String busca){
+    public List<Fornecedor> filtrar(String tipo, String status, String busca) {
         boolean statusF;
-        
-        if(status.equals("Ativo") || status.equals("selecionar...")){
+
+        if (status.equals("Ativo") || status.equals("selecionar...")) {
             statusF = true;
         } else {
             statusF = false;
         }
-        
-        if(tipo.equals("ID")){
+
+        FornecedorDAO fornecedorDao = new FornecedorDAO();
+
+        if (tipo.equals("ID")) {
+
             int id = Integer.parseInt(busca);
-            
-            FornecedorDAO fornecedorDao = new FornecedorDAO();
-            fornecedorDao.buscar(id, statusF);
+            Fornecedor fornecedor = null;
+            fornecedor = fornecedorDao.buscar(id, statusF);
+
+            if (fornecedor == null) {
+                return List.of(fornecedor);
+            } else {
+                return List.of();
+            }
         }
-        
-        if(tipo.equals("Nome")){
+
+        if (tipo.equals("Nome")) {
+
             String nome = busca;
-            
-            FornecedorDAO fornecedorDao = new FornecedorDAO();
-            fornecedorDao.buscar(nome, statusF);
+            List<Fornecedor> fornecedorNome = fornecedorDao.buscar(nome, statusF);
+
+//            return !fornecedorNome.isEmpty();
         }
-        
-        if(tipo.equals("cnpj")){
+
+        if (tipo.equals("cnpj")) {
+
             String cnpj = busca;
-            
-            FornecedorDAO fornecedorDao = new FornecedorDAO();
-            fornecedorDao.buscar(cnpj, statusF);
+            Fornecedor fornecedorCnpj = fornecedorDao.buscar(cnpj, statusF);
+
+            if (fornecedorCnpj == null) {
+                return List.of(fornecedorCnpj);
+            } else {
+                return List.of();
+            }
         }
-        
-        if(tipo.equals("Produto")){
+
+        if (tipo.equals("Produto")) {
             int id = Integer.parseInt(busca);
-            
+
             FornecedorDAO fornecedorDao = new FornecedorDAO();
             fornecedorDao.buscar(id, statusF);
         }
-        
-        return false;
+
+        //return false;
     }
-    
 }
