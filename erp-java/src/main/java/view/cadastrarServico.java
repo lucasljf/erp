@@ -16,6 +16,10 @@ public class CadastrarServico extends javax.swing.JFrame {
     public CadastrarServico() {
         initComponents();
     }
+    
+    public javax.swing.JToggleButton getVoltarButton() {
+        return jToggleButton1;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
