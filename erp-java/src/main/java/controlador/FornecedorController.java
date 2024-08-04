@@ -1,13 +1,19 @@
 package controlador;
 
 import dao.FornecedorDAO;
+import dao.ProdutoDAO;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.Fornecedor;
+import modelo.Produto;
 
 public class FornecedorController {
 
     public List<Fornecedor> filtrar(String tipo, String status, String busca) {
         boolean statusF;
+
+        FornecedorDAO fornecedorDao = new FornecedorDAO();
+        List<Fornecedor> resultadoFiltro = new ArrayList<>();
 
         if (status.equals("Ativo") || status.equals("selecionar...")) {
             statusF = true;
@@ -15,48 +21,64 @@ public class FornecedorController {
             statusF = false;
         }
 
-        FornecedorDAO fornecedorDao = new FornecedorDAO();
-
         if (tipo.equals("ID")) {
 
             int id = Integer.parseInt(busca);
             Fornecedor fornecedor = null;
             fornecedor = fornecedorDao.buscar(id, statusF);
 
-            if (fornecedor == null) {
-                return List.of(fornecedor);
+            if (fornecedor != null) {
+                resultadoFiltro.add(fornecedor);
             } else {
-                return List.of();
+                return null;
             }
         }
 
         if (tipo.equals("Nome")) {
 
             String nome = busca;
-            List<Fornecedor> fornecedorNome = fornecedorDao.buscar(nome, statusF);
-
-//            return !fornecedorNome.isEmpty();
+            resultadoFiltro = fornecedorDao.buscar(nome, statusF);
         }
 
         if (tipo.equals("cnpj")) {
 
             String cnpj = busca;
-            Fornecedor fornecedorCnpj = fornecedorDao.buscar(cnpj, statusF);
+            Fornecedor fornecedorCnpj = fornecedorDao.buscar(statusF, cnpj);
 
-            if (fornecedorCnpj == null) {
-                return List.of(fornecedorCnpj);
+            if (fornecedorCnpj != null) {
+                resultadoFiltro.add(fornecedorCnpj);
             } else {
-                return List.of();
+                return null;
             }
         }
 
         if (tipo.equals("Produto")) {
-            int id = Integer.parseInt(busca);
+            try {
+                // Tentar buscar um produto pelo id
+                int id = Integer.parseInt(busca);
+                ProdutoDAO produtoDao = new ProdutoDAO();
 
-            FornecedorDAO fornecedorDao = new FornecedorDAO();
-            fornecedorDao.buscar(id, statusF);
+                Produto produto = produtoDao.buscar(id, statusF);
+
+                if (produto != null) {
+                    List<Fornecedor> fornecedores = fornecedorDao.buscar(produto, statusF);
+                    resultadoFiltro.addAll(fornecedores);
+                }
+
+            } catch (NumberFormatException e) {
+                // Caso id são seja válido, busca o produto pelo nome
+                String produtoNome = busca;
+                ProdutoDAO produtoDao = new ProdutoDAO();
+
+                ArrayList<Produto> produtos = produtoDao.buscar(produtoNome, statusF);
+
+                for (Produto produto : produtos) {
+                    List<Fornecedor> fornecedores = fornecedorDao.buscar(produto, statusF);
+                    resultadoFiltro.addAll(fornecedores);
+                }
+            }
         }
 
-        //return false;
+        return resultadoFiltro;
     }
 }

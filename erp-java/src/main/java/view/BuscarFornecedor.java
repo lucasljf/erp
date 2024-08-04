@@ -18,10 +18,11 @@ import modelo.Fornecedor;
  * @author reina
  */
 public class BuscarFornecedor extends javax.swing.JPanel {
-    
+
     public static void main(String args[]) {
-    
+
     }
+
     /**
      * Creates new form BuscarFornecedor
      */
@@ -164,47 +165,31 @@ public class BuscarFornecedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
+
         String filtro = cbFiltro.getSelectedItem().toString();
         String status = cbFiltrarStatus.getSelectedItem().toString();
         String busca = txtBuscar.getText();
 
         FornecedorController fornecedorControler = new FornecedorController();
-
-        // boolean retorno = fornecedorControler.filtrar(filtro, status, busca);
         List<Fornecedor> fornecedores = fornecedorControler.filtrar(filtro, status, busca);
 
         if (!fornecedores.isEmpty()) {
             // imprimir os dados na tabela
-            
+
             String[] colunas = {"CNPJ", "Nome", "Telefone", "Email"};
-        Object[][] dados = new Object[fornecedores.size()][colunas.length];
+            Object[][] dados = new Object[fornecedores.size()][colunas.length];
 
-        for (int i = 0; i < fornecedores.size(); i++) {
-            Fornecedor fornecedor = fornecedores.get(i);
-            dados[i][0] = fornecedor.getCnpj();
-            dados[i][1] = fornecedor.getNome();
-            dados[i][2] = fornecedor.getTelefone();
-            dados[i][4] = fornecedor.getEmail();
-        }
+            for (int i = 0; i < fornecedores.size(); i++) {
+                Fornecedor fornecedor = fornecedores.get(i);
+                dados[i][0] = fornecedor.getCnpj();
+                dados[i][1] = fornecedor.getNome();
+                dados[i][2] = fornecedor.getTelefone();
+                dados[i][4] = fornecedor.getEmail();
+            }
 
-        // Atualizar a tabela
-        DefaultTableModel model = new DefaultTableModel(dados, colunas);
-        jTabela.setModel(model);
-
-//        String[] colunas = {"CNPJ", "Nome", "Telefone", "Email"};
-//        DefaultTableModel model = new DefaultTableModel(colunas, 0);
-//        
-//        for (Fornecedor fornecedor : fornecedores) {
-//            Object[] linha = {
-//                fornecedor.getCnpj(),
-//                fornecedor.getNome(),
-//                fornecedor.getTelefone(),
-//                fornecedor.getEmail()
-//            };
-//            model.addRow(linha);
-//        }
-//        jTabela.setModel(model);
+            // Atualizar a tabela
+            DefaultTableModel model = new DefaultTableModel(dados, colunas);
+            jTabela.setModel(model);
 
         } else {
             // informar qual foi o erro
