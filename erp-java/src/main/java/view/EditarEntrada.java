@@ -47,7 +47,7 @@ public class Cad_entradas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("CADASTRO DE ENTRADAS");
+        jLabel1.setText("EDIÇÃO DE ENTRADAS");
 
         jLabel2.setText("Produto:");
 
