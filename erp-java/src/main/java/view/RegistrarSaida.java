@@ -4,6 +4,12 @@
  */
 package view;
 
+import controlador.SaidaController;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Batman
@@ -26,6 +32,7 @@ public class RegistrarSaida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         nomeProduto = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -76,6 +83,7 @@ public class RegistrarSaida extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(vendaTipoSaidaRadioBotao);
         vendaTipoSaidaRadioBotao.setText("Venda");
         vendaTipoSaidaRadioBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +91,7 @@ public class RegistrarSaida extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(perdaTipoSaidaRadioBotao);
         perdaTipoSaidaRadioBotao.setText("Perda");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -203,7 +212,33 @@ public class RegistrarSaida extends javax.swing.JFrame {
     }//GEN-LAST:event_statusSaidaTextFieldActionPerformed
 
     private void confirmarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarBotaoActionPerformed
-        // TODO add your handling code here:
+        
+        SaidaController saida = new SaidaController();
+        
+        String nome = nomeProduto.getText();
+        String data = dataSaidaTextField.getText();
+        double desconto = Double.parseDouble(descontoSaidaTextField.getText());
+        String tipoSaida = "";
+        boolean resposta = false;
+        
+        if(vendaTipoSaidaRadioBotao.isSelected()){
+            tipoSaida = "Venda";
+        } else if(perdaTipoSaidaRadioBotao.isSelected()){
+            tipoSaida = "Perca";
+        }
+        
+        try {
+            resposta = saida.salvarSaida(nome, data, desconto, tipoSaida);
+        } catch (ParseException ex) {
+            Logger.getLogger(RegistrarSaida.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(resposta == true){
+            JOptionPane.showMessageDialog(this, "Saída registrada com sucesso!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Não foi possivel registrar saída!");
+        }
     }//GEN-LAST:event_confirmarBotaoActionPerformed
 
     private void nomeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeProdutoActionPerformed
@@ -212,6 +247,7 @@ public class RegistrarSaida extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cancelarBotao;
     private javax.swing.JButton confirmarBotao;
     private javax.swing.JTextField dataSaidaTextField;
