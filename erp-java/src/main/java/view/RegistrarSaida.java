@@ -203,7 +203,7 @@ public class RegistrarSaida extends javax.swing.JFrame {
     }//GEN-LAST:event_statusSaidaTextFieldActionPerformed
 
     private void confirmarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarBotaoActionPerformed
-        // TODO add your handling code here:
+        // Chamada controler SaidaController, função salvar();
     }//GEN-LAST:event_confirmarBotaoActionPerformed
 
     private void nomeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeProdutoActionPerformed
