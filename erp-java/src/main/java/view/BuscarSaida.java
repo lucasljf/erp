@@ -4,6 +4,10 @@
  */
 package view;
 
+import controlador.SaidaController;
+import java.util.Map;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Batman
@@ -216,7 +220,26 @@ public class BuscarSaida extends javax.swing.JFrame {
     }//GEN-LAST:event_registrarSaidaBotaoActionPerformed
 
     private void editarSaidaBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarSaidaBotaoActionPerformed
-        // TODO add your handling code here:
+        
+        SaidaController saidaController = new SaidaController();
+        
+        int selectedRow = tabelaSaida.getSelectedRow();
+        if (selectedRow != -1) {
+            String nomeProduto = (String) tabelaSaida.getValueAt(selectedRow, 0); 
+            String tipoSaida = (String) tabelaSaida.getValueAt(selectedRow, 1);
+            
+            Map<String, String> saidaDados = saidaController.buscarSaidaRegistro(nomeProduto, tipoSaida);
+            
+            if (saidaDados != null) {
+                RegistrarSaida registrarSaida = new RegistrarSaida(saidaDados);
+                registrarSaida.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Saída não encontrada.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecione uma saída para editar.");
+        }
+    
     }//GEN-LAST:event_editarSaidaBotaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
