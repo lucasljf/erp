@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author reina
@@ -29,13 +31,13 @@ public class BuscarFornecedor extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabela = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         jButton1.setText("buscar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -58,23 +60,23 @@ public class BuscarFornecedor extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(20);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
+        jScrollPane1.setViewportView(jTabela);
+        if (jTabela.getColumnModel().getColumnCount() > 0) {
+            jTabela.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTabela.getColumnModel().getColumn(0).setMaxWidth(20);
+            jTabela.getColumnModel().getColumn(1).setResizable(false);
+            jTabela.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTabela.getColumnModel().getColumn(2).setResizable(false);
+            jTabela.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTabela.getColumnModel().getColumn(3).setResizable(false);
+            jTabela.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTabela.getColumnModel().getColumn(4).setResizable(false);
+            jTabela.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         jButton2.setText("editar");
 
-        jButton3.setText("cancelar");
+        jButton3.setText("Limpar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -117,7 +119,14 @@ public class BuscarFornecedor extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // Limpa os dados da tabela
+        DefaultTableModel modelo = (DefaultTableModelableModel) jTabela.getModel();
+        modelo.setRowCount(0);
+
+        txtBuscar.setText("");
+        cbFiltro.setSelectedIndex(0);
+        cbFiltrarStatus.setSelectedIndex(0);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
@@ -126,7 +135,7 @@ public class BuscarFornecedor extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTabela;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
