@@ -1,13 +1,6 @@
 package dao;
-
-import modelo.Saida;
 import org.junit.jupiter.api.*;
-
-import java.util.ArrayList;
-import java.util.Date;
-import modelo.Mercadoria;
 import modelo.Produto;
-
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import java.sql.Connection;
@@ -15,6 +8,12 @@ import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import modelo.Mercadoria;
+import modelo.Saida;
+import org.junit.jupiter.api.Test;
 
 public class SaidaDAOTeste{
     public Connection mockConnettion;
@@ -22,6 +21,9 @@ public class SaidaDAOTeste{
     public Resultset mockResultset;
     public SaidaDAO saidaDAO;
 
+    public SaidaDAOTest() {
+    }
+    
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         saidaDAO = new SaidaDAO();
@@ -85,4 +87,52 @@ public class SaidaDAOTeste{
         assertEquals(10.0, saida.getDesconto());
         assertEquals("saida", saida.getTipoSaida());
     }
-}
+
+    @Test
+    public void buscarPorPeriodo(){
+        Date data = new Date("04/05/2024");
+        Mercadoria produto1 = new Mercadoria(
+                "Coca-cola", 
+                "Refrigerante sabor cola 2L",
+                data, data,
+                20,
+                15,
+                true
+        );        
+        Mercadoria produto2 = new Mercadoria(
+                "Arroz", 
+                "Arroz 5kg",
+                data, data,
+                20,
+                15,
+                false
+        );
+        
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.salvar(produto1);
+        produtoDAO.salvar(produto2);  
+        
+        Saida saida = new Saida();
+        saida.setData(new Date("15/06/2024"));
+        saida.setDesconto(0);
+        saida.setProduto(produto1);
+        saida.setTipoSaida("venda");
+        
+        SaidaDAO saidaDAO = new SaidaDAO();
+        saidaDAO.salvar(saida);
+        
+        saida.setData(new Date("09/06/2024"));
+        saida.setDesconto(0);
+        saida.setProduto(produto2);
+        saida.setTipoSaida("venda");
+        
+        saidaDAO.salvar(saida);
+        
+        Date dataInicio = new Date("10/06/2024");
+        Date dataFinal = new Date("10/07/2024"); 
+        List<Saida> saidas = new ArrayList<>();
+        saidas.addAll(saidaDAO.buscar(dataInicio, dataFinal));
+        
+        assertFalse(saidas.isEmpty());
+        assertEquals(1, saidas.size());
+    }
