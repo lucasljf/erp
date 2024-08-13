@@ -1,9 +1,5 @@
 package dao;
-import modelo.Saida;
 import org.junit.jupiter.api.*;
-import java.util.ArrayList;
-import java.util.Date;
-import modelo.Mercadoria;
 import modelo.Produto;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -18,7 +14,6 @@ import java.util.List;
 import modelo.Mercadoria;
 import modelo.Saida;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SaidaDAOTeste{
     public Connection mockConnettion;
