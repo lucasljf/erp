@@ -15,6 +15,35 @@ public class EntradaDAO {
 
     private final Connection conexao = new Conexao().getConexao();
 
+    public Entrada salvar(Entrada entrada) {
+        
+        String sql = "insert into tb_entrada ( data, quantidade, preco_custo, lote, produto_id, validade, fornecedor_id, status) values (?,?,?,?,?,?,?,?)";
+
+
+        try {
+            PreparedStatement ps = this.conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+
+            ps.setDate(1, entrada.getData);
+            ps.setInt(2, entrada.getQuantidade);
+            ps.setInt(3, entrada.getPrecoCusto);
+            ps.setInt(4, entrada.getLote);
+            ps.setInt(5, entrada.getProduto().getId());
+            ps.setDate(6, entrada.getValidade);
+            ps.setInt(7, entrada.getFornecedor().getId());
+            ps.setInt(8, 1);
+
+            ps.execute();
+            ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.executeQuery();
+
+            entrada.setId(rs.getInt(1));
+
+            return entrada;
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+    
     public boolean alterarStatus(Entrada entrada) {
         String sqlSelect = "SELECT * FROM tb_entrada WHERE id = ?";
         String sqlUpdate = "UPDATE tb_entrada SET status = ? WHERE id = ?";
@@ -55,22 +84,19 @@ public class EntradaDAO {
             ResultSet rs = stmt.executeQuery();
             ArrayList<Entrada> entradas = new ArrayList<>();
 
-            while (rs.next()) {
+           while (rs.next()) {
                 int id = rs.getInt("id");
                 Date data = rs.getDate("data");
                 int quantidade = rs.getInt("quantidade");
                 double precoCusto = rs.getDouble("preco_custo");
                 String lote = rs.getString("lote");
                 Date validade = rs.getDate("validade");
-
                 int id_fornecedor = rs.getInt("fornecedor_id");
 
-                FornecedorDao fornecedorDao = new FornecedorDao();
-                Fornecedor fornecedor = fornecedorDao.buscar(id_fornecedor, 1);
-
-                Entrada entrada = new Entrada(id, data, quantidade, precoCusto, produto, fornecedor, lote, validade);
-
+                Fornecedor fornecedor = new FornecedorDAO().buscar(id);
+                Entrada entrada = new Entrada(data, quantidade, precoCusto, fornecedor, lote, validade);
                 entradas.add(entrada);
+
             }
 
             rs.close();
