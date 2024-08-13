@@ -151,7 +151,12 @@ public class ConsultaServicos extends javax.swing.JFrame {
 
         btnAlterar.setText("Alterar");
 
-        btnNovo.setText("Novo");
+        jButton4.setText("Novo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -263,9 +268,10 @@ public class ConsultaServicos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInativoActionPerformed
 
-    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscaActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dispose();
+        new CadastrarServico().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
