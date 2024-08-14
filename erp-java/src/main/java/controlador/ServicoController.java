@@ -1,12 +1,26 @@
 
 package controlador;
 
-import dao.ProdutoDAO;
 import java.util.Date;
+import java.util.List;
+import java.sql.SQLException;
+
+import dao.ProdutoDAO;
 import modelo.Produto;
 import modelo.Servico;
 
+        
+        
+
 public class ServicoController {
+    public final ProdutoDAO produtoDAO;
+
+    public ServicoController(){
+        
+        this.produtoDAO = new ProdutoDAO();
+        
+    }
+
     public boolean cadastrarServico(String nome, String descricao, String garantia) {
         //fazer aqui
         //buscar por nome
@@ -24,9 +38,24 @@ public class ServicoController {
         //return true;
         
         if (servico2 == null) {
-          return false;
+            return false;
         } else {
-          return true;
+            return true;
         }
     }
+    
+    
+    public List<Servico> buscarServicos (String nome, boolean status) throws SQLException{
+        return produtoDAO.buscarServicos(nome, status);
+    }
 }
+
+
+
+
+
+
+
+
+
+
