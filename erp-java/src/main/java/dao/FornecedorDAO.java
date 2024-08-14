@@ -22,17 +22,16 @@ public class FornecedorDAO {
             stmt.setString(2, fornecedor.getTelefone());
             stmt.setString(3, fornecedor.getCnpj());
             stmt.setString(4, fornecedor.getEmail());
-            
+
             stmt.execute();
 
-            ResultSet rs = stmt.getGeneratedKeys();  
+            ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            
+
             fornecedor.setId(rs.getInt(1));
-            
-                    
+
             stmt.close();
-            
+
             return fornecedor;
 
         } catch (SQLException e) {
@@ -75,7 +74,6 @@ public class FornecedorDAO {
         Fornecedor fornecedor = null;
         int statusNum = status ? 1 : 0;
 
-
         try {
             String sql = "SELECT * FROM tb_fornecedor WHERE id = ? AND status = ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -98,9 +96,8 @@ public class FornecedorDAO {
             }
         } catch (SQLException e) {
             System.out.println(e);
+            return null;
         }
-
-        return fornecedor;
 
     }
 
@@ -137,7 +134,7 @@ public class FornecedorDAO {
         return fornecedores;
     }
 
-    public Fornecedor buscarPorCnpj(String cnpj, boolean status) {
+    public Fornecedor buscar(boolean status, String cnpj) {
         Fornecedor fornecedor = null;
 
         try {
@@ -157,6 +154,9 @@ public class FornecedorDAO {
                 fornecedor.setCnpj(rs.getString("cnpj"));
                 fornecedor.setEmail(rs.getString("email"));
             }
+
+            rs.close();
+            stmt.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -164,7 +164,6 @@ public class FornecedorDAO {
         return fornecedor;
 
     }
-
 
     public List<Fornecedor> buscar(Produto produto, boolean status) {
         String product_nameString = produto.getNome();
