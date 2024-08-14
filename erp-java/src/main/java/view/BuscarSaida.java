@@ -25,6 +25,7 @@ public class BuscarSaida extends javax.swing.JFrame {
      */
     public BuscarSaida() {
         initComponents();
+        popularTabelaSaida();
         desativarTudo();
     }
 
@@ -130,6 +131,7 @@ public class BuscarSaida extends javax.swing.JFrame {
             }
         });
 
+        tabelaSaida.setAutoCreateColumnsFromModel(false);
         tabelaSaida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -278,6 +280,19 @@ public class BuscarSaida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editarSaidaBotaoActionPerformed
 
+    private void popularTabelaSaida() {
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSaida.getModel();
+
+        modelo.setRowCount(0);
+        
+        SaidaController saidas = new SaidaController();
+        List<Object[]> dadosTabela = saidas.preencherTabela();
+
+        for (Object[] linha : dadosTabela) {
+            modelo.addRow(linha);
+        }
+    }
+    
     private void produtoSaidaRadioBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoSaidaRadioBotaoActionPerformed
         
         nomeProdutoTextField.setEnabled(true);
