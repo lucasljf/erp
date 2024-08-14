@@ -65,7 +65,7 @@ public class FornecedorDAO {
             stmt.close();
 
             return true;
-        } catch (Exception exception) {
+        } catch (SQLException exception) {
             return false;
         }
     }
@@ -80,21 +80,20 @@ public class FornecedorDAO {
             stmt.setInt(1, id);
             stmt.setInt(2, statusNum);
 
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                fornecedor = new Fornecedor();
-                fornecedor.setId(rs.getInt("id"));
-                fornecedor.setNome(rs.getString("nome"));
-                fornecedor.setTelefone(rs.getString("telefone"));
-                fornecedor.setCnpj(rs.getString("cnpj"));
-                fornecedor.setEmail(rs.getString("email"));
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        Fornecedor f = new Fornecedor(
+                                rs.getInt("id"),
+                                rs.getString("nome"),
+                                rs.getString("telefone"),
+                                rs.getString("cnpj"),
+                                rs.getString("email")
+                        );
+                    }
+                    rs.close();
+                }
+                 stmt.close();
             }
-
-            rs.close();
-            stmt.close();
-
-            return fornecedor;
         } catch (SQLException e) {
             System.out.println(e);
             return null;
@@ -112,21 +111,23 @@ public class FornecedorDAO {
             stmt.setString(1, "%" + nome + "%");
             stmt.setInt(2, statusNum);
 
-            ResultSet rs = stmt.executeQuery();
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Fornecedor f = new Fornecedor(
+                                rs.getInt("id"),
+                                rs.getString("nome"),
+                                rs.getString("telefone"),
+                                rs.getString("cnpj"),
+                                rs.getString("email")
+                        );
 
-            while (rs.next()) {
-                Fornecedor fornecedor = new Fornecedor();
-                fornecedor.setId(rs.getInt("id"));
-                fornecedor.setNome(rs.getString("nome"));
-                fornecedor.setTelefone(rs.getString("telefone"));
-                fornecedor.setCnpj(rs.getString("cnpj"));
-                fornecedor.setEmail(rs.getString("email"));
-
-                fornecedores.add(fornecedor);
+                        fornecedores.add(f);
+                    }
+                    rs.close();
+                }
+                stmt.close();
             }
-            rs.close();
-            stmt.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 
@@ -167,22 +168,24 @@ public class FornecedorDAO {
     public List<Fornecedor> buscar(Produto produto, boolean status) {
         String product_nameString = produto.getNome();
         int status_boolean = status ? 1 : 0;
-        List<Fornecedor> Fornecedores = new ArrayList<Fornecedor>();
+        List<Fornecedor> Fornecedores = new ArrayList<>();
         String sql
                 = "SELECT * FROM tb_fornecedor INNER JOIN tb_produto ON tb_fornecedor.id = tb_produto.fornecedor_id WHERE tb_produto.nome = ? AND tb_fornecedor.status = ?";
         try (
-                Connection conn = Conexao.getConnexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
+                PreparedStatement ps = this.conexao.prepareStatement(sql)) {
             ps.setString(1, product_nameString);
             ps.setInt(2, status_boolean);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Fornecedor f = new Fornecedor();
-                f.setId(rs.getInt("id"));
-                f.setNome(rs.getString("nome"));
-                f.setTelefone(rs.getString("telefone"));
-                f.setCnpj(rs.getString("cnpj"));
-                f.setEmail(rs.getString("email"));
+                Fornecedor f = new Fornecedor(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("telefone"),
+                        rs.getString("cnpj"),
+                        rs.getString("email")
+                );
                 Fornecedores.add(f);
+                rs.close();
             }
             return Fornecedores;
         } catch (SQLException e) {

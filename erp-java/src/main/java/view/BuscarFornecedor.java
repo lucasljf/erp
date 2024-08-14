@@ -19,15 +19,14 @@ import modelo.Fornecedor;
  */
 public class BuscarFornecedor extends javax.swing.JPanel {
 
-    public static void main(String args[]) {
-
-    }
-
+        private FornecedorController fornecedorController;
+         
     /**
      * Creates new form BuscarFornecedor
      */
     public BuscarFornecedor() {
         initComponents();
+        fornecedorController = new FornecedorController();
     }
 
     /**
@@ -40,7 +39,7 @@ public class BuscarFornecedor extends javax.swing.JPanel {
     private void initComponents() {
 
         txtBuscar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabela = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -55,10 +54,16 @@ public class BuscarFornecedor extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("buscar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -163,6 +168,23 @@ public class BuscarFornecedor extends javax.swing.JPanel {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+            String nome = jTextField1.getText(); 
+            boolean status = false;
+       
+            try{
+            List<Fornecedor> fornecedores = fornecedorController.buscar(nome, status);
+            preencherTabela(fornecedores);
+            }catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao buscar serviços: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+       
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 

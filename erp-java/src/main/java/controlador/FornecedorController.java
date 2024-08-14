@@ -8,6 +8,15 @@ import modelo.Fornecedor;
 import modelo.Produto;
 
 public class FornecedorController {
+    private FornecedorDAO fornecedorDAO;
+
+    public FornecedorController() {
+        this.fornecedorDAO = new FornecedorDAO();
+    }
+
+    public List<Fornecedor> buscar(String nome, boolean status) {
+        return fornecedorDAO.buscar(nome, status);
+    }
 
     public List<Fornecedor> filtrar(String tipo, String status, String busca) {
         boolean statusF;
