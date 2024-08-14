@@ -8,6 +8,7 @@ import modelo.Mercadoria;
 import modelo.Produto;
 import modelo.Servico;
 import java.sql.Connection;
+import java.util.List;
 
 public class ProdutoDAO {
 
@@ -185,4 +186,57 @@ public class ProdutoDAO {
             throw new RuntimeException();
         }
     }
+    
+    
+    public ArrayList<Servico> buscarServicos (String nome, boolean status) throws SQLException{
+        ArrayList<Servico> servicos = new ArrayList<>();
+
+        String sql = "SELECT * FROM tb_produto WHERE nome LIKE ? AND status = ? AND tipo_produto = 'S'";
+        int statusNum = (status) ? 1 : 0;
+        
+        try {
+            
+            PreparedStatement stmt = this.conexao.prepareStatement(sql);
+            stmt.setString(1, "%" + nome + "%");
+            stmt.setInt(2, statusNum);
+            
+            ResultSet rs = stmt.getGeneratedKeys();
+            while (rs.next()){
+         
+                Servico servico = new Servico();     // criar construtor, ficou faltando
+                servico.setId(rs.getInt("id"));
+                servico.setNome(rs.getString("nome"));
+                servico.setAtualizadoEm(rs.getDate("atualizado_em"));
+                servico.setCriadoEm(rs.getDate("criado_em"));
+                servico.setDescricao(rs.getString("descricao"));
+                servico.setGarantia(rs.getString("garantia"));
+
+                servicos.add(servico);
+            }
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+     
+        }
+        return servicos;
+                
+                
+    }
+            
+           
+    
+    private PreparedStatement prepareStatement(String sql) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 }
+       
+
+       
+       
+       
+       
+
+

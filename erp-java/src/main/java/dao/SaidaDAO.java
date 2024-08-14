@@ -3,6 +3,7 @@ package dao;
 import modelo.Produto;
 import modelo.Saida;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
 
 public class SaidaDAO {
 
@@ -61,7 +64,7 @@ public class SaidaDAO {
 
                 int id_produto = rs.getInt("produto_id");
                 ProdutoDao produtoDao = new ProdutoDao();
-                Produto produto = produtoDao.buscar(id_produto, 1)
+                Produto produto = produtoDao.buscar(id_produto, 1);
                         
                 Date data = rs.getDate("data");
                 Double desconto = rs.getDouble("desconto");
