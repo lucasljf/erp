@@ -4,6 +4,10 @@
  */
 package view;
 
+import controlador.SaidaController;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+
 /**
  *
  * @author Batman
@@ -15,6 +19,7 @@ public class BuscarSaida extends javax.swing.JFrame {
      */
     public BuscarSaida() {
         initComponents();
+        popularTabelaSaida();
     }
 
     /**
@@ -100,6 +105,7 @@ public class BuscarSaida extends javax.swing.JFrame {
             }
         });
 
+        tabelaSaida.setAutoCreateColumnsFromModel(false);
         tabelaSaida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -219,6 +225,19 @@ public class BuscarSaida extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editarSaidaBotaoActionPerformed
 
+    private void popularTabelaSaida() {
+        DefaultTableModel modelo = (DefaultTableModel) tabelaSaida.getModel();
+
+        modelo.setRowCount(0);
+        
+        SaidaController saidas = new SaidaController();
+        List<Object[]> dadosTabela = saidas.preencherTabela();
+
+        for (Object[] linha : dadosTabela) {
+            modelo.addRow(linha);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarSaidaBotao;
     private javax.swing.JTextField dataFinalSaidaTextField;
