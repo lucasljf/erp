@@ -25,6 +25,11 @@ public class Mercadoria extends Produto{
         this.perecivel = perecivel;
     }
 
+    public Mercadoria() {
+        super();
+    }
+    
+    
     public double getQuantidadeMinima() {
         return quantidadeMinima;
     }
@@ -47,5 +52,6 @@ public class Mercadoria extends Produto{
 
     public void setPerecivel(boolean perecivel) {
         this.perecivel = perecivel;
-    }    
+    }
+    
 }

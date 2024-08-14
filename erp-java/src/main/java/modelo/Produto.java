@@ -17,6 +17,10 @@ public abstract class Produto {
         this.atualizadoEm = new Date(); 
     }
 
+    public Produto() {
+    }
+    
+    
     public int getId() {
         return id;
     }
