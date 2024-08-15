@@ -1,20 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-/**
- *
- * @author Cliente
- */
+import javax.swing.JLabel;
+
+
 public class CadastrarServico extends javax.swing.JFrame {
+
+    private JLabel jLabelDataHora;
 
     /**
      * Creates new form cadastrarServico
      */
     public CadastrarServico() {
         initComponents();
+    }
+    
+    public javax.swing.JToggleButton getSalvarButton() {
+        return jToggleButton2;
+    }
+
+    public javax.swing.JLabel getDataHoraLabel() {
+        return jLabelDataHora;
+    }
+    
+    private void initComponents() {
+        jLabelDataHora = new javax.swing.JLabel();
+        jLabelDataHora.setText("Data e Hora:");
+    }
+    
+    public javax.swing.JToggleButton getVoltarButton() {
+        return jToggleButton1;
+    }
+    
+    public javax.swing.JTextField getNomeField() {
+        return jTextField1;
+    }
+
+    public javax.swing.JTextArea getDescricaoArea() {
+        return jTextArea1;
+    }
+
+    public javax.swing.JTextField getGarantiaField() {
+        return jTextField2;
+    }
+
+    public javax.swing.JToggleButton getLimparButton() {
+        return jToggleButton3;
     }
 
     /**

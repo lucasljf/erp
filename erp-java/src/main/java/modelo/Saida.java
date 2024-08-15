@@ -83,4 +83,21 @@ public class Saida {
     }
     
     
+    
+    /* 
+        *Instanciando Saída;
+        *@author Paulo Prado;
+    */
+    
+    public String saida(Produto produto, Date data, double desconto, String tipoSaida){
+        Saida saida = new Saida();
+        
+        saida.produto = produto;
+        saida.data = data;
+        saida.desconto = desconto;
+        saida.tipoSaida = tipoSaida;
+        
+        return null;
+    }
+    
 }
