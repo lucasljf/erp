@@ -8,76 +8,20 @@ import modelo.Mercadoria;
 import modelo.Produto;
 import modelo.Servico;
 import java.sql.Connection;
-import java.util.List;
-import java.util.Date;
 
 public class ProdutoDAO {
 
     private final Connection conexao = new Conexao().getConexao();
-    
-    public ArrayList<Produto> buscarTodos(boolean status, char tipo){
-        ArrayList<Produto> produtos = new ArrayList<>();
-        
-        String sql = "SELECT * FROM tb_produto WHERE tipo_produto = ? AND status = ?";
-        int statusNum = (status) ? 1 : 0;
-        if(tipo == 'A'){
-            String tipoString = String.valueOf(tipo);
-            try{
-                PreparedStatement ps = this.conexao.prepareStatement(sql);
-                ps.setString(1, tipoString);
-                ps.setInt(2, statusNum);
-                
-                try(ResultSet rs = ps.executeQuery()){
-                    while(rs.next()) {
-                        Mercadoria mercadoria = new Mercadoria(
-                                rs.getString("nome"),
-                                rs.getString("descricao"),
-                                rs.getDate("criado_em"),
-                                rs.getDate("atualizado_em"),
-                                rs.getDouble("quantidade_minima"),
-                                rs.getDouble("porcentagem_lucro"),
-                                status);
-                        mercadoria.setId(rs.getInt("id"));
-                        produtos.add(mercadoria);
-                    }
-                }
-            }catch(SQLException e){
-                System.out.println("Erro: " + e.getMessage());
-            }        
-        } else {
-            String tipoString = String.valueOf(tipo);
-            try{
-                PreparedStatement ps = this.conexao.prepareStatement(sql);
-                ps.setString(1, tipoString);
-                ps.setInt(2, statusNum);
-                
-                try(ResultSet rs = ps.executeQuery()){
-                    while(rs.next()) {
-                        Servico servico = new Servico(
-                                rs.getString("nome"),
-                                rs.getString("descricao"),
-                                (Date) rs.getDate("criado_em"),
-                                (Date) rs.getDate("atualizado_em"),
-                                rs.getString("garantia"));
-                        produtos.add(servico);
-                    }
-                }
-            }catch(SQLException e){
-                System.out.println("Erro: " + e.getMessage());
-            }   
-        }
-        return produtos;
-    }
 
     public ArrayList<Produto> buscar(String nome, boolean status) {
         ArrayList<Produto> produtos = new ArrayList<>();
 
-        String sql = "SELECT * FROM tb_produto WHERE nome LIKE ? AND status = ?";
+        String sql = "SELECT * FROM tb_produto WHERE nome = ? AND status = ?";
         int statusNum = (status) ? 1 : 0;
 
         try {
             PreparedStatement ps = this.conexao.prepareStatement(sql);
-            ps.setString(1, "%" + nome + "%");
+            ps.setString(1, nome);
             ps.setInt(2, statusNum);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -170,32 +114,28 @@ public class ProdutoDAO {
 
             if (rs.next()) {
                 if (tipoProduto.equalsIgnoreCase("M")) {
-                    Mercadoria produto = new Mercadoria(
-                            rs.getString("nome"),
-                            rs.getString("descricao"),
-                            (Date) rs.getDate("criado_em"),
-                            (Date) rs.getDate("atualizado_em"),
-                            rs.getDouble("quantidade_minima"),
-                            rs.getDouble("porcentagem_lucro"),
-                            rs.getBoolean("perecivel"));
+                    Mercadoria produto = new Mercadoria(rs.getInt("id"), rs.
+                            getString("nome"), rs.getString("descricao"), rs.
+                            getDate("criado_em"), rs.getDate("atualizado_em"),
+                            rs.getDouble("quantidade_minima"), rs.getDouble(
+                            "porcentagem_lucro"), rs.getBoolean("perecivel"));
 
                     return produto;
                 } else {
-                    Servico produto = new Servico(rs.getString(
-                            "nome"), rs.getString("descricao"), rs.getDate(
+                    Servico produto = new Servico(rs.getInt("id"), rs.getString(
+                            "nome"), s.getString("descricao"), rs.getDate(
                             "criado_em"), rs.getDate("atualizado_em"), rs.
                             getString("garantia"));
-                    produto.setId(rs.getInt("id"));
 
                     return produto;
                 }
             }
+
             rs.close();
             stmt.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
     }
 
     public Produto salvar(Produto produto) {
@@ -213,7 +153,7 @@ public class ProdutoDAO {
                 stmt.setDouble(5, mercadoria.getQuantidadeMinima());
                 stmt.setDouble(6, mercadoria.getPorcentagemLucro());
                 stmt.setBoolean(7, mercadoria.isPerecivel());
-                stmt.setObject(8, true);
+                stmt.setObject(8, mercadoria.getStatus());
 
                 stmt.execute();
 
@@ -245,57 +185,4 @@ public class ProdutoDAO {
             throw new RuntimeException();
         }
     }
-    
-    
-    public ArrayList<Servico> buscarServicos (String nome, boolean status) throws SQLException{
-        ArrayList<Servico> servicos = new ArrayList<>();
-
-        String sql = "SELECT * FROM tb_produto WHERE nome LIKE ? AND status = ? AND tipo_produto = 'S'";
-        int statusNum = (status) ? 1 : 0;
-        
-        try {
-            
-            PreparedStatement stmt = this.conexao.prepareStatement(sql);
-            stmt.setString(1, "%" + nome + "%");
-            stmt.setInt(2, statusNum);
-            
-            ResultSet rs = stmt.getGeneratedKeys();
-            while (rs.next()){
-         
-                Servico servico = new Servico();     // criar construtor, ficou faltando
-                servico.setId(rs.getInt("id"));
-                servico.setNome(rs.getString("nome"));
-                servico.setAtualizadoEm(rs.getDate("atualizado_em"));
-                servico.setCriadoEm(rs.getDate("criado_em"));
-                servico.setDescricao(rs.getString("descricao"));
-                servico.setGarantia(rs.getString("garantia"));
-
-                servicos.add(servico);
-            }
-
-            rs.close();
-            stmt.close();
-
-        } catch (SQLException e) {
-     
-        }
-        return servicos;
-                
-                
-    }
-            
-           
-    
-    private PreparedStatement prepareStatement(String sql) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }
-       
-
-       
-       
-       
-       
-
-
