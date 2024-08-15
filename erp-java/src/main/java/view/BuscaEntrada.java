@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.Cad_entradas to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.Editar_entradas to edit this template
  */
 package view;
 
@@ -174,19 +174,19 @@ public class Busca_entrada extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Busca_entrada.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        Cad_entradas.awt.EventQueue.invokeLater(new Runnable() {
+        Editar_entradas.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Busca_entrada().setVisible(true);
             }

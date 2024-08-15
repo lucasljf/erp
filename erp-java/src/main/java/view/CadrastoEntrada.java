@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.Cad_entradas to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.Editar_entradas to edit this template
  */
 package view;
 
@@ -10,12 +10,12 @@ import controlador.EntradaController;
  *
  * @author 55629
  */
-public class Cad_entradas extends javax.swing.JFrame {
+public class Editar_entradas extends javax.swing.JFrame {
 
     /**
      * Creates new form java
      */
-    public Cad_entradas() {
+    public Editar_entradas() {
         initComponents();
     }
 
@@ -58,7 +58,7 @@ public class Cad_entradas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("EDITAR ENTRADAS");
+        jLabel1.setText("Cdastrar entradas");
 
         jLabel2.setText("Produto:");
 
@@ -400,21 +400,23 @@ public class Cad_entradas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Cad_entradas.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Editar_entradas.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Cad_entradas.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Editar_entradas.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Cad_entradas.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Editar_entradas.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Cad_entradas.util.logging.Logger.getLogger(Cad_entradas.class.getName()).log(Cad_entradas.util.logging.Level.SEVERE, null, ex);
+            Editar_entradas.util.logging.Logger.getLogger(Editar_entradas.class.getName()).log(Editar_entradas.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        Cad_entradas.awt.EventQueue.invokeLater(new Runnable() {
+        Editar_entradas.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cad_entradas().setVisible(true);
+                new Editar_entradas().setVisible(true);
             }
         });
     }

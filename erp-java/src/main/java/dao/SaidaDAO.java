@@ -64,7 +64,7 @@ public class SaidaDAO {
 
                 int id_produto = rs.getInt("produto_id");
                 ProdutoDao produtoDao = new ProdutoDao();
-                Produto produto = produtoDao.buscar(id_produto, 1)
+                Produto produto = produtoDao.buscar(id_produto, 1);
                         
                 Date data = rs.getDate("data");
                 Double desconto = rs.getDouble("desconto");

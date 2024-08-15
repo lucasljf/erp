@@ -38,12 +38,8 @@ public class Fornecedor {
         return id;
     }
 
-    public Fornecedor(int id, String nome, String telefone, String cnpj, String email) {
-        this.id = id;
+    public Fornecedor(String nomel) {
         this.nome = nome;
-        this.telefone = telefone;
-        this.cnpj = cnpj;
-        this.email = email;
     }
 
     /**
