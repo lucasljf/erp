@@ -191,7 +191,7 @@ public class RegistrarSaida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBotaoActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_cancelarBotaoActionPerformed
 
     private void vendaTipoSaidaRadioBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendaTipoSaidaRadioBotaoActionPerformed
