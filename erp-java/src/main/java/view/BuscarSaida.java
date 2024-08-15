@@ -216,7 +216,8 @@ public class BuscarSaida extends javax.swing.JFrame {
     }//GEN-LAST:event_dataSaidaRadioBotaoActionPerformed
 
     private void registrarSaidaBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarSaidaBotaoActionPerformed
-        // TODO add your handling code here:
+        RegistrarSaida registrarSaida = new RegistrarSaida();
+        registrarSaida.setVisible(true);
     }//GEN-LAST:event_registrarSaidaBotaoActionPerformed
 
     private void editarSaidaBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarSaidaBotaoActionPerformed
