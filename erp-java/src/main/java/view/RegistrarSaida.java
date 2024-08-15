@@ -10,8 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import java.util.Map;
+
 /**
- *
  * @author Batman
  */
 public class RegistrarSaida extends javax.swing.JFrame {
@@ -23,6 +24,11 @@ public class RegistrarSaida extends javax.swing.JFrame {
         initComponents();
     }
 
+    public RegistrarSaida(Map<String, String> saidaDados) {
+        initComponents();
+        preencherCampos(saidaDados);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -203,6 +209,17 @@ public class RegistrarSaida extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelarBotaoActionPerformed
 
+    private void preencherCampos(Map<String, String> saidaDados) {
+        nomeProduto.setText(saidaDados.get("nomeProduto"));
+        dataSaidaTextField.setText(saidaDados.get("data"));
+        descontoSaidaTextField.setText(saidaDados.get("desconto"));
+        if ("Venda".equalsIgnoreCase(saidaDados.get("tipoSaida"))) {
+            vendaTipoSaidaRadioBotao.setSelected(true);
+        } else if ("Perda".equalsIgnoreCase(saidaDados.get("tipoSaida"))) {
+            perdaTipoSaidaRadioBotao.setSelected(true);
+        }    
+    }
+    
     private void vendaTipoSaidaRadioBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendaTipoSaidaRadioBotaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_vendaTipoSaidaRadioBotaoActionPerformed
