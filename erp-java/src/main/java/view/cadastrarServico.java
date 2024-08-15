@@ -1,20 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-/**
- *
- * @author Cliente
- */
-public class CadastrarServico extends javax.swing.JFrame {
+import controlador.ServicoController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+public class CadastrarServico extends javax.swing.JFrame {
+    private JTextField nomeField;
+    private JTextField descricaoField;
+    private JTextField garantiaField;
+    private JButton cadastrarButton;
+    private JPanel mainPanel;
     /**
      * Creates new form cadastrarServico
      */
     public CadastrarServico() {
-        initComponents();
+        //initComponents();
+        setTitle("Cadastrar Serviço");
+        setContentPane(mainPanel);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+
+        cadastrarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nome = nomeField.getText();
+                String descricao = descricaoField.getText();
+                String garantia = garantiaField.getText();
+
+                ServicoController controller = new ServicoController();
+                controller.cadastrarServico(nome, descricao, garantia);
+            }
+        });
     }
     
     public javax.swing.JTextField getNomeField() {
