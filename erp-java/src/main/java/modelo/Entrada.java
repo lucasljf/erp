@@ -1,11 +1,10 @@
 package modelo;
 
-
+import dao.EntradaDAO;
 import java.util.Date;
 
-
 public class Entrada {
-    
+
     private int id;
     private Date data;
     private int quantidade;
@@ -80,5 +79,9 @@ public class Entrada {
 
     public void setValidade(Date validade) {
         this.validade = validade;
+    }
+
+    public static  void salvarEntrada(Entrada entrada) {
+        EntradaDAO.salvar(entrada);
     }
 }
