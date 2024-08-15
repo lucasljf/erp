@@ -26,6 +26,26 @@ public class CadastrarServico extends javax.swing.JFrame {
         jLabelDataHora = new javax.swing.JLabel();
         jLabelDataHora.setText("Data e Hora:");
     }
+    
+    public javax.swing.JToggleButton getVoltarButton() {
+        return jToggleButton1;
+    }
+    
+    public javax.swing.JTextField getNomeField() {
+        return jTextField1;
+    }
+
+    public javax.swing.JTextArea getDescricaoArea() {
+        return jTextArea1;
+    }
+
+    public javax.swing.JTextField getGarantiaField() {
+        return jTextField2;
+    }
+
+    public javax.swing.JToggleButton getLimparButton() {
+        return jToggleButton3;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
