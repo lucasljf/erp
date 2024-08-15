@@ -192,4 +192,21 @@ public class FornecedorDAO {
         }
     }
 
+    public void atualizar(Fornecedor fornecedor) {
+        String sql = "UPDATE tb_fornecedor SET nome = ?, telefone = ?, cnpj = ?, email = ? WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, fornecedor.getNome());
+            stmt.setString(2, fornecedor.getTelefone());
+            stmt.setString(3, fornecedor.getCnpj());
+            stmt.setString(4, fornecedor.getEmail());
+            stmt.setInt(5, fornecedor.getId());
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
