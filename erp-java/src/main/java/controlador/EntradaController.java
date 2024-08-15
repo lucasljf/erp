@@ -63,4 +63,26 @@ public class EntradaController {
 
         return buscasEntrada;
     }
+    public List<Entrada> BuscarEntrada(String strFornecedor, String strProduto) {
+        
+        FornecedorDAO fornecedorDao = new FornecedorDAO();
+        Fornecedor fornecedor = fornecedorDao.buscar(strFornecedor);
+        
+        ProdutoDAO produtoDao = new ProdutoDAO();
+        Produto produto = produtoDao.buscar(strProduto);
+        
+        List<Entrada> buscasEntrada = new ArrayList<>();
+        EntradaDAO entradaDAO = new EntradaDAO();
+
+        List<Entrada> entradas = entradaDAO.buscar(fornecedor);
+
+        for (Entrada entrada : entradas) {
+            Produto produtoEntrada = entrada.getProduto();
+            if (produto == produtoEntrada) {
+                buscasEntrada.add(entrada);
+            }
+        }
+
+        return buscasEntrada;
+    }
 }
